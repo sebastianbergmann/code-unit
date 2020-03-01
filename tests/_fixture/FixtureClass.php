@@ -9,14 +9,14 @@
  */
 namespace SebastianBergmann\CodeUnit\Fixture;
 
-final class FixtureClass
+class FixtureClass
 {
     public function publicMethod(): void
     {
         // ...
     }
 
-    private function protectedMethod(): void
+    protected function protectedMethod(): void
     {
         // ...
     }
