@@ -9,7 +9,7 @@
  */
 namespace SebastianBergmann\CodeUnit\Fixture;
 
-class FixtureClass extends FixtureParentClass
+class FixtureParentClass
 {
     public function publicMethod(): void
     {

@@ -42,48 +42,50 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
     public static function fromString(string $unit): self
     {
         if (\strpos($unit, '::') !== false) {
-            [$type, $method] = \explode('::', $unit);
+            [$firstPart, $secondPart] = \explode('::', $unit);
 
-            if (empty($type)) {
-                if (\function_exists($method)) {
-                    return self::fromList(CodeUnit::forFunction($method));
-                }
+            if (empty($firstPart) && \function_exists($secondPart)) {
+                return self::fromList(CodeUnit::forFunction($secondPart));
             }
 
-            if (\class_exists($type)) {
-                if ($method === '<public>') {
-                    return self::publicMethodsOfClass($type);
+            if (\class_exists($firstPart)) {
+                if ($secondPart === '<public>') {
+                    return self::publicMethodsOfClass($firstPart);
                 }
 
-                if ($method === '<!public>') {
-                    return self::protectedAndPrivateMethodsOfClass($type);
+                if ($secondPart === '<!public>') {
+                    return self::protectedAndPrivateMethodsOfClass($firstPart);
                 }
 
-                if ($method === '<protected>') {
-                    return self::protectedMethodsOfClass($type);
+                if ($secondPart === '<protected>') {
+                    return self::protectedMethodsOfClass($firstPart);
                 }
 
-                if ($method === '<!protected>') {
-                    return self::publicAndPrivateMethodsOfClass($type);
+                if ($secondPart === '<!protected>') {
+                    return self::publicAndPrivateMethodsOfClass($firstPart);
                 }
 
-                if ($method === '<private>') {
-                    return self::privateMethodsOfClass($type);
+                if ($secondPart === '<private>') {
+                    return self::privateMethodsOfClass($firstPart);
                 }
 
-                if ($method === '<!private>') {
-                    return self::publicAndProtectedMethodsOfClass($type);
+                if ($secondPart === '<!private>') {
+                    return self::publicAndProtectedMethodsOfClass($firstPart);
                 }
 
-                return self::fromList(CodeUnit::forClassMethod($type, $method));
+                if ($secondPart === '<extended>') {
+                    return self::classAndParentClasses($firstPart);
+                }
+
+                return self::fromList(CodeUnit::forClassMethod($firstPart, $secondPart));
             }
 
-            if (\interface_exists($type)) {
-                return self::fromList(CodeUnit::forInterfaceMethod($type, $method));
+            if (\interface_exists($firstPart)) {
+                return self::fromList(CodeUnit::forInterfaceMethod($firstPart, $secondPart));
             }
 
-            if (\trait_exists($type)) {
-                return self::fromList(CodeUnit::forTraitMethod($type, $method));
+            if (\trait_exists($firstPart)) {
+                return self::fromList(CodeUnit::forTraitMethod($firstPart, $secondPart));
             }
         } else {
             if (\class_exists($unit)) {
@@ -252,6 +254,24 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
 
         foreach (self::reflectorForClass($className)->getMethods($filter) as $method) {
             $units[] = CodeUnit::forClassMethod($className, $method->getName());
+        }
+
+        return self::fromArray($units);
+    }
+
+    /**
+     * @psalm-param class-string $className
+     *
+     * @throws ReflectionException
+     */
+    private static function classAndParentClasses($className): self
+    {
+        $units = [CodeUnit::forClass($className)];
+
+        $reflector = self::reflectorForClass($className);
+
+        while ($reflector = $reflector->getParentClass()) {
+            $units[] = CodeUnit::forClass($reflector->getName());
         }
 
         return self::fromArray($units);
