@@ -18,6 +18,8 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
  * @covers \SebastianBergmann\CodeUnit\TraitUnit
  * @covers \SebastianBergmann\CodeUnit\CodeUnit
  *
+ * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
+ *
  * @testdox TraitUnit
  */
 final class TraitUnitTest extends TestCase
@@ -41,9 +43,9 @@ final class TraitUnitTest extends TestCase
 
     public function testCanBeCreatedFromString(): void
     {
-        $unit = CodeUnit::fromString(FixtureTrait::class);
+        $units = CodeUnit::fromString(FixtureTrait::class);
 
-        $this->assertSame(FixtureTrait::class, $unit->name());
+        $this->assertSame(FixtureTrait::class, $units->asArray()[0]->name());
     }
 
     public function testCannotBeCreatedForClass(): void

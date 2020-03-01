@@ -15,6 +15,8 @@ use PHPUnit\Framework\TestCase;
  * @covers \SebastianBergmann\CodeUnit\FunctionUnit
  * @covers \SebastianBergmann\CodeUnit\CodeUnit
  *
+ * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
+ *
  * @testdox FunctionUnit
  */
 final class FunctionUnitTest extends TestCase
@@ -38,9 +40,9 @@ final class FunctionUnitTest extends TestCase
 
     public function testCanBeCreatedFromString(): void
     {
-        $unit = CodeUnit::fromString('SebastianBergmann\CodeUnit\Fixture\f');
+        $units = CodeUnit::fromString('SebastianBergmann\CodeUnit\Fixture\f');
 
-        $this->assertSame('SebastianBergmann\CodeUnit\Fixture\f', $unit->name());
+        $this->assertSame('SebastianBergmann\CodeUnit\Fixture\f', $units->asArray()[0]->name());
     }
 
     public function testCannotBeCreatedForInternalFunction(): void
