@@ -11,6 +11,7 @@ namespace SebastianBergmann\CodeUnit;
 
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClass;
+use SebastianBergmann\CodeUnit\Fixture\FixtureClassWithTrait;
 use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
 use SebastianBergmann\CodeUnit\Fixture\FixtureParentClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
@@ -90,6 +91,18 @@ final class CodeUnitCollectionTest extends TestCase
 
         $this->assertCount(1, $units);
         $this->assertSame(FixtureClass::class, $units->asArray()[0]->name());
+    }
+
+    /**
+     * @testdox Can be created from 'ClassName' string
+     */
+    public function testCanBeCreatedForClassesAndTheTraitsTheyUse(): void
+    {
+        $units = CodeUnitCollection::fromString(FixtureClassWithTrait::class);
+
+        $this->assertCount(2, $units);
+        $this->assertSame(FixtureClassWithTrait::class, $units->asArray()[0]->name());
+        $this->assertSame(FixtureTrait::class, $units->asArray()[1]->name());
     }
 
     /**

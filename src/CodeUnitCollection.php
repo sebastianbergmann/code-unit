@@ -85,7 +85,13 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
             }
         } else {
             if (\class_exists($unit)) {
-                return self::fromList(CodeUnit::forClass($unit));
+                $units = [CodeUnit::forClass($unit)];
+
+                foreach (self::reflectorForClass($unit)->getTraits() as $trait) {
+                    $units[] = CodeUnit::forTrait($trait->getName());
+                }
+
+                return self::fromArray($units);
             }
 
             if (\interface_exists($unit)) {
@@ -274,8 +280,16 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
 
         $reflector = self::reflectorForClass($className);
 
+        foreach (self::reflectorForClass($className)->getTraits() as $trait) {
+            $units[] = CodeUnit::forTrait($trait->getName());
+        }
+
         while ($reflector = $reflector->getParentClass()) {
             $units[] = CodeUnit::forClass($reflector->getName());
+
+            foreach (self::reflectorForClass($className)->getTraits() as $trait) {
+                $units[] = CodeUnit::forTrait($trait->getName());
+            }
         }
 
         return self::fromArray($units);
