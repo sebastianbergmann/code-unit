@@ -26,7 +26,7 @@ final class ClassMethodUnitTest extends TestCase
 {
     public function testCanBeCreatedFromNameOfUserDefinedClassAndMethodName(): void
     {
-        $unit = CodeUnit::forClassMethod(FixtureClass::class, 'method');
+        $unit = CodeUnit::forClassMethod(FixtureClass::class, 'publicMethod');
 
         $this->assertFalse($unit->isClass());
         $this->assertTrue($unit->isClassMethod());
@@ -36,16 +36,16 @@ final class ClassMethodUnitTest extends TestCase
         $this->assertFalse($unit->isTraitMethod());
         $this->assertFalse($unit->isFunction());
 
-        $this->assertSame(FixtureClass::class . '::method', $unit->name());
+        $this->assertSame(FixtureClass::class . '::publicMethod', $unit->name());
         $this->assertSame(\realpath(__DIR__ . '/../_fixture/FixtureClass.php'), $unit->sourceFileName());
         $this->assertSame(\range(14, 17), $unit->sourceLines());
     }
 
     public function testCanBeCreatedFromString(): void
     {
-        $units = CodeUnit::fromString(FixtureClass::class . '::method');
+        $units = CodeUnit::fromString(FixtureClass::class . '::publicMethod');
 
-        $this->assertSame(FixtureClass::class . '::method', $units->asArray()[0]->name());
+        $this->assertSame(FixtureClass::class . '::publicMethod', $units->asArray()[0]->name());
     }
 
     public function testCannotBeCreatedForMethodOfInternalClass(): void

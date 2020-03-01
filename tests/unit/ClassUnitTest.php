@@ -38,7 +38,7 @@ final class ClassUnitTest extends TestCase
 
         $this->assertSame(FixtureClass::class, $unit->name());
         $this->assertSame(\realpath(__DIR__ . '/../_fixture/FixtureClass.php'), $unit->sourceFileName());
-        $this->assertSame(\range(12, 18), $unit->sourceLines());
+        $this->assertSame(\range(12, 28), $unit->sourceLines());
     }
 
     public function testCanBeCreatedFromString(): void

@@ -11,7 +11,17 @@ namespace SebastianBergmann\CodeUnit\Fixture;
 
 final class FixtureClass
 {
-    public function method(): void
+    public function publicMethod(): void
+    {
+        // ...
+    }
+
+    private function protectedMethod(): void
+    {
+        // ...
+    }
+
+    private function privateMethod(): void
     {
         // ...
     }

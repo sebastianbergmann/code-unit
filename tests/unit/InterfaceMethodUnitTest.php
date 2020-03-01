@@ -59,7 +59,7 @@ final class InterfaceMethodUnitTest extends TestCase
     {
         $this->expectException(InvalidCodeUnitException::class);
 
-        CodeUnit::forInterfaceMethod(FixtureClass::class, 'method');
+        CodeUnit::forInterfaceMethod(FixtureClass::class, 'publicMethod');
     }
 
     public function testCannotBeCreatedForTraitMethod(): void

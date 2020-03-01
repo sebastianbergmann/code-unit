@@ -85,7 +85,7 @@ final class CodeUnitCollectionTest extends TestCase
 
         $this->assertSame(
             [
-                \realpath(__DIR__ . '/../_fixture/FixtureClass.php')     => \range(12, 18),
+                \realpath(__DIR__ . '/../_fixture/FixtureClass.php')     => \range(12, 28),
                 \realpath(__DIR__ . '/../_fixture/FixtureInterface.php') => \range(12, 15),
             ],
             $collection->sourceLines()
