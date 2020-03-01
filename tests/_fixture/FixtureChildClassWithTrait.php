@@ -9,19 +9,11 @@
  */
 namespace SebastianBergmann\CodeUnit\Fixture;
 
-class FixtureClass
+final class FixtureChildClassWithTrait extends FixtureParentClassWithTrait
 {
+    use FixtureAnotherTrait;
+
     public function publicMethod(): void
-    {
-        // ...
-    }
-
-    protected function protectedMethod(): void
-    {
-        // ...
-    }
-
-    private function privateMethod(): void
     {
         // ...
     }

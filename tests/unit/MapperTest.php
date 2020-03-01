@@ -10,10 +10,12 @@
 namespace SebastianBergmann\CodeUnit;
 
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherTrait;
+use SebastianBergmann\CodeUnit\Fixture\FixtureChildClassWithTrait;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClassWithTrait;
 use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
-use SebastianBergmann\CodeUnit\Fixture\FixtureParentClass;
+use SebastianBergmann\CodeUnit\Fixture\FixtureParentClassWithTrait;
 use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
 
 /**
@@ -59,7 +61,7 @@ final class MapperTest extends TestCase
     /**
      * @testdox Can map 'ClassName' string to code unit objects
      */
-    public function testCanBeCreatedForClassesAndTheTraitsTheyUseToCodeUnitObjects(): void
+    public function testMapClassesAndTheTraitsTheyUseToCodeUnitObjects(): void
     {
         $units = (new Mapper)->stringToCodeUnits(FixtureClassWithTrait::class);
 
@@ -73,11 +75,13 @@ final class MapperTest extends TestCase
      */
     public function testCanMapStringWithClassNameAndSelectorForParentClassesToCodeUnitObjects(): void
     {
-        $units = (new Mapper)->stringToCodeUnits(FixtureClass::class . '<extended>');
+        $units = (new Mapper)->stringToCodeUnits(FixtureChildClassWithTrait::class . '<extended>');
 
-        $this->assertCount(2, $units);
-        $this->assertSame(FixtureClass::class, $units->asArray()[0]->name());
-        $this->assertSame(FixtureParentClass::class, $units->asArray()[1]->name());
+        $this->assertCount(4, $units);
+        $this->assertSame(FixtureChildClassWithTrait::class, $units->asArray()[0]->name());
+        $this->assertSame(FixtureAnotherTrait::class, $units->asArray()[1]->name());
+        $this->assertSame(FixtureParentClassWithTrait::class, $units->asArray()[2]->name());
+        $this->assertSame(FixtureTrait::class, $units->asArray()[3]->name());
     }
 
     /**

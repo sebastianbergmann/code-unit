@@ -9,19 +9,11 @@
  */
 namespace SebastianBergmann\CodeUnit\Fixture;
 
-class FixtureParentClass
+class FixtureParentClassWithTrait
 {
+    use FixtureTrait;
+
     public function publicMethod(): void
-    {
-        // ...
-    }
-
-    protected function protectedMethod(): void
-    {
-        // ...
-    }
-
-    private function privateMethod(): void
     {
         // ...
     }

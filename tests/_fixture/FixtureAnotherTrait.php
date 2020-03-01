@@ -9,19 +9,9 @@
  */
 namespace SebastianBergmann\CodeUnit\Fixture;
 
-class FixtureClass
+trait FixtureAnotherTrait
 {
-    public function publicMethod(): void
-    {
-        // ...
-    }
-
-    protected function protectedMethod(): void
-    {
-        // ...
-    }
-
-    private function privateMethod(): void
+    public function anotherMethod(): void
     {
         // ...
     }
