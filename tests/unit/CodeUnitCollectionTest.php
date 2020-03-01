@@ -222,6 +222,19 @@ final class CodeUnitCollectionTest extends TestCase
         }
     }
 
+    public function testCanBeMergedWithAnotherCollectionOfCodeUnitObjects(): void
+    {
+        $this->assertSame(
+            [
+                $this->class,
+                $this->interface,
+            ],
+            CodeUnitCollection::fromList($this->class)->mergeWith(
+                CodeUnitCollection::fromList($this->interface)
+            )->asArray()
+        );
+    }
+
     public function testSourceLinesCanBeRetrieved(): void
     {
         $collection = CodeUnitCollection::fromList(

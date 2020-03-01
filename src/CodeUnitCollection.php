@@ -160,6 +160,16 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
         return $result;
     }
 
+    public function mergeWith(self $other): self
+    {
+        return self::fromArray(
+            \array_merge(
+                $this->asArray(),
+                $other->asArray()
+            )
+        );
+    }
+
     private function add(CodeUnit $item): void
     {
         $this->codeUnits[] = $item;
