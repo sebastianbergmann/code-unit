@@ -62,6 +62,34 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
         return empty($this->codeUnits);
     }
 
+    /**
+     * @psalm-return array<string,array<int,int>>
+     */
+    public function sourceLines(): array
+    {
+        $result = [];
+
+        foreach ($this as $codeUnit) {
+            $sourceFileName = $codeUnit->sourceFileName();
+
+            if (!isset($result[$sourceFileName])) {
+                $result[$sourceFileName] = [];
+            }
+
+            $result[$sourceFileName] = \array_merge($result[$sourceFileName], $codeUnit->sourceLines());
+        }
+
+        foreach (\array_keys($result) as $sourceFileName) {
+            $result[$sourceFileName] = \array_unique($result[$sourceFileName]);
+
+            \sort($result[$sourceFileName]);
+        }
+
+        \ksort($result);
+
+        return $result;
+    }
+
     private function add(CodeUnit $item): void
     {
         $this->codeUnits[] = $item;

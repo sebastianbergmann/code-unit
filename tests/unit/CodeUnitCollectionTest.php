@@ -74,4 +74,21 @@ final class CodeUnitCollectionTest extends TestCase
             $this->assertSame($this->interface, $value);
         }
     }
+
+    public function testSourceLinesCanBeRetrieved(): void
+    {
+        $collection = CodeUnitCollection::fromList(
+            $this->interface,
+            $this->class,
+            CodeUnit::forClass(FixtureClass::class)
+        );
+
+        $this->assertSame(
+            [
+                \realpath(__DIR__ . '/../_fixture/FixtureClass.php')     => \range(12, 18),
+                \realpath(__DIR__ . '/../_fixture/FixtureInterface.php') => \range(12, 15),
+            ],
+            $collection->sourceLines()
+        );
+    }
 }
