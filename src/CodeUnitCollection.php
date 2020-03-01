@@ -44,6 +44,12 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
         if (\strpos($unit, '::') !== false) {
             [$type, $method] = \explode('::', $unit);
 
+            if (empty($type)) {
+                if (\function_exists($method)) {
+                    return self::fromList(CodeUnit::forFunction($method));
+                }
+            }
+
             if (\class_exists($type)) {
                 if ($method === '<public>') {
                     return self::publicMethodsOfClass($type);

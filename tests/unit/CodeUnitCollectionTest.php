@@ -71,6 +71,16 @@ final class CodeUnitCollectionTest extends TestCase
     }
 
     /**
+     * @testdox Can be created from '::function_name' string
+     */
+    public function testCanBeCreatedFromStringWithFunctionNamePrefixedWithDoubleColons(): void
+    {
+        $units = CodeUnitCollection::fromString('::f');
+
+        $this->assertSame('f', $units->asArray()[0]->name());
+    }
+
+    /**
      * @testdox Can be created from 'ClassName' string
      */
     public function testCanBeCreatedFromStringWithClassName(): void

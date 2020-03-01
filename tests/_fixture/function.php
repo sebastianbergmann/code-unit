@@ -7,9 +7,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace SebastianBergmann\CodeUnit\Fixture;
-
-function f(): int
+namespace SebastianBergmann\CodeUnit\Fixture
 {
-    return 1;
+    function f(): int
+    {
+        return 1;
+    }
+}
+namespace
+{
+    function f(): int
+    {
+        return 1;
+    }
 }
