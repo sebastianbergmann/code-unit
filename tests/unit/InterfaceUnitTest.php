@@ -18,8 +18,6 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
  * @covers \SebastianBergmann\CodeUnit\InterfaceUnit
  * @covers \SebastianBergmann\CodeUnit\CodeUnit
  *
- * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
- *
  * @testdox InterfaceUnit
  */
 final class InterfaceUnitTest extends TestCase
@@ -39,13 +37,6 @@ final class InterfaceUnitTest extends TestCase
         $this->assertSame(FixtureInterface::class, $unit->name());
         $this->assertSame(\realpath(__DIR__ . '/../_fixture/FixtureInterface.php'), $unit->sourceFileName());
         $this->assertSame(\range(12, 15), $unit->sourceLines());
-    }
-
-    public function testCanBeCreatedFromString(): void
-    {
-        $units = CodeUnit::fromString(FixtureInterface::class);
-
-        $this->assertSame(FixtureInterface::class, $units->asArray()[0]->name());
     }
 
     public function testCannotBeCreatedForInternalInterface(): void

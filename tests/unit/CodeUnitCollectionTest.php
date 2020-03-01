@@ -12,6 +12,7 @@ namespace SebastianBergmann\CodeUnit;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
+use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
 
 /**
  * @covers \SebastianBergmann\CodeUnit\CodeUnitCollection
@@ -57,6 +58,76 @@ final class CodeUnitCollectionTest extends TestCase
         $collection = CodeUnitCollection::fromList($this->interface, $this->class);
 
         $this->assertSame([$this->interface, $this->class], $collection->asArray());
+    }
+
+    /**
+     * @testdox Can be created from 'function_name' string
+     */
+    public function testCanBeCreatedFromStringWithFunctionName(): void
+    {
+        $units = CodeUnit::fromString('SebastianBergmann\CodeUnit\Fixture\f');
+
+        $this->assertSame('SebastianBergmann\CodeUnit\Fixture\f', $units->asArray()[0]->name());
+    }
+
+    /**
+     * @testdox Can be created from 'ClassName' string
+     */
+    public function testCanBeCreatedFromStringWithClassName(): void
+    {
+        $units = CodeUnit::fromString(FixtureClass::class);
+
+        $this->assertSame(FixtureClass::class, $units->asArray()[0]->name());
+    }
+
+    /**
+     * @testdox Can be created from 'ClassName::methodName' string
+     */
+    public function testCanBeCreatedFromStringWithClassNameAndMethodName(): void
+    {
+        $units = CodeUnit::fromString(FixtureClass::class . '::publicMethod');
+
+        $this->assertSame(FixtureClass::class . '::publicMethod', $units->asArray()[0]->name());
+    }
+
+    /**
+     * @testdox Can be created from 'InterfaceName' string
+     */
+    public function testCanBeCreatedFromStringWithInterfaceName(): void
+    {
+        $units = CodeUnit::fromString(FixtureInterface::class);
+
+        $this->assertSame(FixtureInterface::class, $units->asArray()[0]->name());
+    }
+
+    /**
+     * @testdox Can be created from 'InterfaceName::methodName' string
+     */
+    public function testCanBeCreatedFromStringWithInterfaceNameAndMethodName(): void
+    {
+        $units = CodeUnit::fromString(FixtureInterface::class . '::method');
+
+        $this->assertSame(FixtureInterface::class . '::method', $units->asArray()[0]->name());
+    }
+
+    /**
+     * @testdox Can be created from 'TraitName' string
+     */
+    public function testCanBeCreatedFromStringWithTraitName(): void
+    {
+        $units = CodeUnit::fromString(FixtureTrait::class);
+
+        $this->assertSame(FixtureTrait::class, $units->asArray()[0]->name());
+    }
+
+    /**
+     * @testdox Can be created from 'TraitName::methodName' string
+     */
+    public function testCanBeCreatedFromStringWithTraitNameAndMethodName(): void
+    {
+        $units = CodeUnit::fromString(FixtureTrait::class . '::method');
+
+        $this->assertSame(FixtureTrait::class . '::method', $units->asArray()[0]->name());
     }
 
     public function testCanBeCounted(): void

@@ -18,8 +18,6 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
  * @covers \SebastianBergmann\CodeUnit\TraitMethodUnit
  * @covers \SebastianBergmann\CodeUnit\CodeUnit
  *
- * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
- *
  * @testdox TraitMethodUnit
  */
 final class TraitMethodUnitTest extends TestCase
@@ -39,13 +37,6 @@ final class TraitMethodUnitTest extends TestCase
         $this->assertSame(FixtureTrait::class . '::method', $unit->name());
         $this->assertSame(\realpath(__DIR__ . '/../_fixture/FixtureTrait.php'), $unit->sourceFileName());
         $this->assertSame(\range(14, 17), $unit->sourceLines());
-    }
-
-    public function testCanBeCreatedFromString(): void
-    {
-        $units = CodeUnit::fromString(FixtureTrait::class . '::method');
-
-        $this->assertSame(FixtureTrait::class . '::method', $units->asArray()[0]->name());
     }
 
     public function testCannotBeCreatedForClassMethod(): void

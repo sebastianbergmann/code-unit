@@ -15,8 +15,6 @@ use PHPUnit\Framework\TestCase;
  * @covers \SebastianBergmann\CodeUnit\FunctionUnit
  * @covers \SebastianBergmann\CodeUnit\CodeUnit
  *
- * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
- *
  * @testdox FunctionUnit
  */
 final class FunctionUnitTest extends TestCase
@@ -36,13 +34,6 @@ final class FunctionUnitTest extends TestCase
         $this->assertSame('SebastianBergmann\CodeUnit\Fixture\f', $unit->name());
         $this->assertSame(\realpath(__DIR__ . '/../_fixture/function.php'), $unit->sourceFileName());
         $this->assertSame(\range(12, 15), $unit->sourceLines());
-    }
-
-    public function testCanBeCreatedFromString(): void
-    {
-        $units = CodeUnit::fromString('SebastianBergmann\CodeUnit\Fixture\f');
-
-        $this->assertSame('SebastianBergmann\CodeUnit\Fixture\f', $units->asArray()[0]->name());
     }
 
     public function testCannotBeCreatedForInternalFunction(): void

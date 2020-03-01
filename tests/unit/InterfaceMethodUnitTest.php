@@ -18,8 +18,6 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
  * @covers \SebastianBergmann\CodeUnit\InterfaceMethodUnit
  * @covers \SebastianBergmann\CodeUnit\CodeUnit
  *
- * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
- *
  * @testdox InterfaceMethodUnit
  */
 final class InterfaceMethodUnitTest extends TestCase
@@ -39,13 +37,6 @@ final class InterfaceMethodUnitTest extends TestCase
         $this->assertSame(FixtureInterface::class . '::method', $unit->name());
         $this->assertSame(\realpath(__DIR__ . '/../_fixture/FixtureInterface.php'), $unit->sourceFileName());
         $this->assertSame([14], $unit->sourceLines());
-    }
-
-    public function testCanBeCreatedFromString(): void
-    {
-        $units = CodeUnit::fromString(FixtureInterface::class . '::method');
-
-        $this->assertSame(FixtureInterface::class . '::method', $units->asArray()[0]->name());
     }
 
     public function testCannotBeCreatedForMethodOfInternalInterface(): void
