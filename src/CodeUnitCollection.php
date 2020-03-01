@@ -35,6 +35,52 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
         return self::fromArray($items);
     }
 
+    /**
+     * @throws InvalidCodeUnitException
+     * @throws ReflectionException
+     */
+    public static function fromString(string $unit): self
+    {
+        if (\strpos($unit, '::') !== false) {
+            [$type, $method] = \explode('::', $unit);
+
+            if (\class_exists($type)) {
+                return self::fromList(CodeUnit::forClassMethod($type, $method));
+            }
+
+            if (\interface_exists($type)) {
+                return self::fromList(CodeUnit::forInterfaceMethod($type, $method));
+            }
+
+            if (\trait_exists($type)) {
+                return self::fromList(CodeUnit::forTraitMethod($type, $method));
+            }
+        } else {
+            if (\class_exists($unit)) {
+                return self::fromList(CodeUnit::forClass($unit));
+            }
+
+            if (\interface_exists($unit)) {
+                return self::fromList(CodeUnit::forInterface($unit));
+            }
+
+            if (\trait_exists($unit)) {
+                return self::fromList(CodeUnit::forTrait($unit));
+            }
+
+            if (\function_exists($unit)) {
+                return self::fromList(CodeUnit::forFunction($unit));
+            }
+        }
+
+        throw new InvalidCodeUnitException(
+            \sprintf(
+                '"%s" is not a valid code unit',
+                $unit
+            )
+        );
+    }
+
     private function __construct()
     {
     }

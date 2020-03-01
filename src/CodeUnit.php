@@ -192,52 +192,6 @@ abstract class CodeUnit
     }
 
     /**
-     * @throws InvalidCodeUnitException
-     * @throws ReflectionException
-     */
-    public static function fromString(string $unit): CodeUnitCollection
-    {
-        if (\strpos($unit, '::') !== false) {
-            [$type, $method] = \explode('::', $unit);
-
-            if (\class_exists($type)) {
-                return CodeUnitCollection::fromList(self::forClassMethod($type, $method));
-            }
-
-            if (\interface_exists($type)) {
-                return CodeUnitCollection::fromList(self::forInterfaceMethod($type, $method));
-            }
-
-            if (\trait_exists($type)) {
-                return CodeUnitCollection::fromList(self::forTraitMethod($type, $method));
-            }
-        } else {
-            if (\class_exists($unit)) {
-                return CodeUnitCollection::fromList(self::forClass($unit));
-            }
-
-            if (\interface_exists($unit)) {
-                return CodeUnitCollection::fromList(self::forInterface($unit));
-            }
-
-            if (\trait_exists($unit)) {
-                return CodeUnitCollection::fromList(self::forTrait($unit));
-            }
-
-            if (\function_exists($unit)) {
-                return CodeUnitCollection::fromList(self::forFunction($unit));
-            }
-        }
-
-        throw new InvalidCodeUnitException(
-            \sprintf(
-                '"%s" is not a valid code unit',
-                $unit
-            )
-        );
-    }
-
-    /**
      * @psalm-param array<int,int> $sourceLines
      */
     private function __construct(string $name, string $sourceFileName, array $sourceLines)

@@ -65,7 +65,7 @@ final class CodeUnitCollectionTest extends TestCase
      */
     public function testCanBeCreatedFromStringWithFunctionName(): void
     {
-        $units = CodeUnit::fromString('SebastianBergmann\CodeUnit\Fixture\f');
+        $units = CodeUnitCollection::fromString('SebastianBergmann\CodeUnit\Fixture\f');
 
         $this->assertSame('SebastianBergmann\CodeUnit\Fixture\f', $units->asArray()[0]->name());
     }
@@ -75,7 +75,7 @@ final class CodeUnitCollectionTest extends TestCase
      */
     public function testCanBeCreatedFromStringWithClassName(): void
     {
-        $units = CodeUnit::fromString(FixtureClass::class);
+        $units = CodeUnitCollection::fromString(FixtureClass::class);
 
         $this->assertSame(FixtureClass::class, $units->asArray()[0]->name());
     }
@@ -85,7 +85,7 @@ final class CodeUnitCollectionTest extends TestCase
      */
     public function testCanBeCreatedFromStringWithClassNameAndMethodName(): void
     {
-        $units = CodeUnit::fromString(FixtureClass::class . '::publicMethod');
+        $units = CodeUnitCollection::fromString(FixtureClass::class . '::publicMethod');
 
         $this->assertSame(FixtureClass::class . '::publicMethod', $units->asArray()[0]->name());
     }
@@ -95,7 +95,7 @@ final class CodeUnitCollectionTest extends TestCase
      */
     public function testCanBeCreatedFromStringWithInterfaceName(): void
     {
-        $units = CodeUnit::fromString(FixtureInterface::class);
+        $units = CodeUnitCollection::fromString(FixtureInterface::class);
 
         $this->assertSame(FixtureInterface::class, $units->asArray()[0]->name());
     }
@@ -105,7 +105,7 @@ final class CodeUnitCollectionTest extends TestCase
      */
     public function testCanBeCreatedFromStringWithInterfaceNameAndMethodName(): void
     {
-        $units = CodeUnit::fromString(FixtureInterface::class . '::method');
+        $units = CodeUnitCollection::fromString(FixtureInterface::class . '::method');
 
         $this->assertSame(FixtureInterface::class . '::method', $units->asArray()[0]->name());
     }
@@ -115,7 +115,7 @@ final class CodeUnitCollectionTest extends TestCase
      */
     public function testCanBeCreatedFromStringWithTraitName(): void
     {
-        $units = CodeUnit::fromString(FixtureTrait::class);
+        $units = CodeUnitCollection::fromString(FixtureTrait::class);
 
         $this->assertSame(FixtureTrait::class, $units->asArray()[0]->name());
     }
@@ -125,9 +125,16 @@ final class CodeUnitCollectionTest extends TestCase
      */
     public function testCanBeCreatedFromStringWithTraitNameAndMethodName(): void
     {
-        $units = CodeUnit::fromString(FixtureTrait::class . '::method');
+        $units = CodeUnitCollection::fromString(FixtureTrait::class . '::method');
 
         $this->assertSame(FixtureTrait::class . '::method', $units->asArray()[0]->name());
+    }
+
+    public function testCannotBeCreatedFromInvalidString(): void
+    {
+        $this->expectException(InvalidCodeUnitException::class);
+
+        CodeUnitCollection::fromString('invalid');
     }
 
     public function testCanBeCounted(): void
