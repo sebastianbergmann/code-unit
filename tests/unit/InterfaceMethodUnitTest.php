@@ -39,6 +39,13 @@ final class InterfaceMethodUnitTest extends TestCase
         $this->assertSame([14], $unit->sourceLines());
     }
 
+    public function testCanBeCreatedFromString(): void
+    {
+        $unit = CodeUnit::fromString(FixtureInterface::class . '::method');
+
+        $this->assertSame(FixtureInterface::class . '::method', $unit->name());
+    }
+
     public function testCannotBeCreatedForMethodOfInternalInterface(): void
     {
         $this->expectException(InvalidCodeUnitException::class);

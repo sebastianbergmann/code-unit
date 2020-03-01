@@ -39,6 +39,13 @@ final class TraitUnitTest extends TestCase
         $this->assertSame(\range(12, 18), $unit->sourceLines());
     }
 
+    public function testCanBeCreatedFromString(): void
+    {
+        $unit = CodeUnit::fromString(FixtureTrait::class);
+
+        $this->assertSame(FixtureTrait::class, $unit->name());
+    }
+
     public function testCannotBeCreatedForClass(): void
     {
         $this->expectException(InvalidCodeUnitException::class);

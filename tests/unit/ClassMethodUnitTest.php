@@ -39,6 +39,13 @@ final class ClassMethodUnitTest extends TestCase
         $this->assertSame(\range(14, 17), $unit->sourceLines());
     }
 
+    public function testCanBeCreatedFromString(): void
+    {
+        $unit = CodeUnit::fromString(FixtureClass::class . '::method');
+
+        $this->assertSame(FixtureClass::class . '::method', $unit->name());
+    }
+
     public function testCannotBeCreatedForMethodOfInternalClass(): void
     {
         $this->expectException(InvalidCodeUnitException::class);
