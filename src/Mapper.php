@@ -221,7 +221,7 @@ final class Mapper
         while ($reflector = $reflector->getParentClass()) {
             $units[] = CodeUnit::forClass($reflector->getName());
 
-            foreach ($this->reflectorForClass($className)->getTraits() as $trait) {
+            foreach ($reflector->getTraits() as $trait) {
                 $units[] = CodeUnit::forTrait($trait->getName());
             }
         }
