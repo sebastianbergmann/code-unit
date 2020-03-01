@@ -73,10 +73,6 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
                     return self::publicAndProtectedMethodsOfClass($firstPart);
                 }
 
-                if ($secondPart === '<extended>') {
-                    return self::classAndParentClasses($firstPart);
-                }
-
                 return self::fromList(CodeUnit::forClassMethod($firstPart, $secondPart));
             }
 
@@ -102,6 +98,14 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
 
             if (\function_exists($unit)) {
                 return self::fromList(CodeUnit::forFunction($unit));
+            }
+
+            if (\strpos($unit, '<extended>') !== false) {
+                $unit = \str_replace('<extended>', '', $unit);
+
+                if (\class_exists($unit)) {
+                    return self::classAndParentClasses($unit);
+                }
             }
         }
 

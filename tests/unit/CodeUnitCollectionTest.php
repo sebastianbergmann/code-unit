@@ -93,11 +93,11 @@ final class CodeUnitCollectionTest extends TestCase
     }
 
     /**
-     * @testdox Can be created from 'ClassName::<extended>' string
+     * @testdox Can be created from 'ClassName<extended>' string
      */
     public function testCanBeCreatedFromStringWithClassNameAndSelectorForParentClasses(): void
     {
-        $units = CodeUnitCollection::fromString(FixtureClass::class . '::<extended>');
+        $units = CodeUnitCollection::fromString(FixtureClass::class . '<extended>');
 
         $this->assertCount(2, $units);
         $this->assertSame(FixtureClass::class, $units->asArray()[0]->name());
