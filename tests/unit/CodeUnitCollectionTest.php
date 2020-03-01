@@ -91,6 +91,75 @@ final class CodeUnitCollectionTest extends TestCase
     }
 
     /**
+     * @testdox Can be created from 'ClassName::<public>' string
+     */
+    public function testCanBeCreatedFromStringWithClassNameAndPublicMethodSelector(): void
+    {
+        $units = CodeUnitCollection::fromString(FixtureClass::class . '::<public>');
+
+        $this->assertCount(1, $units);
+        $this->assertSame(FixtureClass::class . '::publicMethod', $units->asArray()[0]->name());
+    }
+
+    /**
+     * @testdox Can be created from 'ClassName::<!public>' string
+     */
+    public function testCanBeCreatedFromStringWithClassNameAndNoPublicMethodSelector(): void
+    {
+        $units = CodeUnitCollection::fromString(FixtureClass::class . '::<!public>');
+
+        $this->assertCount(2, $units);
+        $this->assertSame(FixtureClass::class . '::protectedMethod', $units->asArray()[0]->name());
+        $this->assertSame(FixtureClass::class . '::privateMethod', $units->asArray()[1]->name());
+    }
+
+    /**
+     * @testdox Can be created from 'ClassName::<protected>' string
+     */
+    public function testCanBeCreatedFromStringWithClassNameAndProtectedMethodSelector(): void
+    {
+        $units = CodeUnitCollection::fromString(FixtureClass::class . '::<protected>');
+
+        $this->assertCount(1, $units);
+        $this->assertSame(FixtureClass::class . '::protectedMethod', $units->asArray()[0]->name());
+    }
+
+    /**
+     * @testdox Can be created from 'ClassName::<!protected>' string
+     */
+    public function testCanBeCreatedFromStringWithClassNameAndNoProtectedMethodSelector(): void
+    {
+        $units = CodeUnitCollection::fromString(FixtureClass::class . '::<!protected>');
+
+        $this->assertCount(2, $units);
+        $this->assertSame(FixtureClass::class . '::publicMethod', $units->asArray()[0]->name());
+        $this->assertSame(FixtureClass::class . '::privateMethod', $units->asArray()[1]->name());
+    }
+
+    /**
+     * @testdox Can be created from 'ClassName::<private>' string
+     */
+    public function testCanBeCreatedFromStringWithClassNameAndPrivateMethodSelector(): void
+    {
+        $units = CodeUnitCollection::fromString(FixtureClass::class . '::<private>');
+
+        $this->assertCount(1, $units);
+        $this->assertSame(FixtureClass::class . '::privateMethod', $units->asArray()[0]->name());
+    }
+
+    /**
+     * @testdox Can be created from 'ClassName::<!private>' string
+     */
+    public function testCanBeCreatedFromStringWithClassNameAndNoPrivateMethodSelector(): void
+    {
+        $units = CodeUnitCollection::fromString(FixtureClass::class . '::<!private>');
+
+        $this->assertCount(2, $units);
+        $this->assertSame(FixtureClass::class . '::publicMethod', $units->asArray()[0]->name());
+        $this->assertSame(FixtureClass::class . '::protectedMethod', $units->asArray()[1]->name());
+    }
+
+    /**
      * @testdox Can be created from 'InterfaceName' string
      */
     public function testCanBeCreatedFromStringWithInterfaceName(): void

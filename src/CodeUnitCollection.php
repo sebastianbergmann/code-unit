@@ -45,6 +45,30 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
             [$type, $method] = \explode('::', $unit);
 
             if (\class_exists($type)) {
+                if ($method === '<public>') {
+                    return self::publicMethodsOfClass($type);
+                }
+
+                if ($method === '<!public>') {
+                    return self::protectedAndPrivateMethodsOfClass($type);
+                }
+
+                if ($method === '<protected>') {
+                    return self::protectedMethodsOfClass($type);
+                }
+
+                if ($method === '<!protected>') {
+                    return self::publicAndPrivateMethodsOfClass($type);
+                }
+
+                if ($method === '<private>') {
+                    return self::privateMethodsOfClass($type);
+                }
+
+                if ($method === '<!private>') {
+                    return self::publicAndProtectedMethodsOfClass($type);
+                }
+
                 return self::fromList(CodeUnit::forClassMethod($type, $method));
             }
 
@@ -139,5 +163,101 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
     private function add(CodeUnit $item): void
     {
         $this->codeUnits[] = $item;
+    }
+
+    /**
+     * @psalm-param class-string $className
+     *
+     * @throws ReflectionException
+     */
+    private static function publicMethodsOfClass(string $className): self
+    {
+        return self::methodsOfClass($className, \ReflectionMethod::IS_PUBLIC);
+    }
+
+    /**
+     * @psalm-param class-string $className
+     *
+     * @throws ReflectionException
+     */
+    private static function publicAndProtectedMethodsOfClass(string $className): self
+    {
+        return self::methodsOfClass($className, \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED);
+    }
+
+    /**
+     * @psalm-param class-string $className
+     *
+     * @throws ReflectionException
+     */
+    private static function publicAndPrivateMethodsOfClass(string $className): self
+    {
+        return self::methodsOfClass($className, \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PRIVATE);
+    }
+
+    /**
+     * @psalm-param class-string $className
+     *
+     * @throws ReflectionException
+     */
+    private static function protectedMethodsOfClass(string $className): self
+    {
+        return self::methodsOfClass($className, \ReflectionMethod::IS_PROTECTED);
+    }
+
+    /**
+     * @psalm-param class-string $className
+     *
+     * @throws ReflectionException
+     */
+    private static function protectedAndPrivateMethodsOfClass(string $className): self
+    {
+        return self::methodsOfClass($className, \ReflectionMethod::IS_PROTECTED | \ReflectionMethod::IS_PRIVATE);
+    }
+
+    /**
+     * @psalm-param class-string $className
+     *
+     * @throws ReflectionException
+     */
+    private static function privateMethodsOfClass(string $className): self
+    {
+        return self::methodsOfClass($className, \ReflectionMethod::IS_PRIVATE);
+    }
+
+    /**
+     * @psalm-param class-string $className
+     *
+     * @throws ReflectionException
+     */
+    private static function methodsOfClass(string $className, int $filter): self
+    {
+        $units = [];
+
+        foreach (self::reflectorForClass($className)->getMethods($filter) as $method) {
+            $units[] = CodeUnit::forClassMethod($className, $method->getName());
+        }
+
+        return self::fromArray($units);
+    }
+
+    /**
+     * @psalm-param class-string $className
+     *
+     * @throws ReflectionException
+     */
+    private static function reflectorForClass(string $className): \ReflectionClass
+    {
+        try {
+            return new \ReflectionClass($className);
+            // @codeCoverageIgnoreStart
+        } catch (\ReflectionException $e) {
+            throw new ReflectionException(
+                $e->getMessage(),
+                (int) $e->getCode(),
+                $e
+            );
+        }
+        // @codeCoverageIgnoreEnd
     }
 }
