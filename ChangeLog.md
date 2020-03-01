@@ -6,4 +6,4 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial release
 
-[1.0.0]: https://github.com/sebastianbergmann/code-unit/compare/530c3900e5db9bcb8516da545bef0d62536cedaa...1.0.0
+[1.0.0]: https://github.com/sebastianbergmann/code-unit/compare/530c3900e5db9bcb8516da545bef0d62536cedaa...master
