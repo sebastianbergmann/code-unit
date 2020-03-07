@@ -26,7 +26,7 @@ abstract class CodeUnit
 
     /**
      * @var array
-     * @psalm-var array<int,int>
+     * @psalm-var list<int>
      */
     private $sourceLines;
 
@@ -192,7 +192,7 @@ abstract class CodeUnit
     }
 
     /**
-     * @psalm-param array<int,int> $sourceLines
+     * @psalm-param list<int> $sourceLines
      */
     private function __construct(string $name, string $sourceFileName, array $sourceLines)
     {
@@ -212,7 +212,7 @@ abstract class CodeUnit
     }
 
     /**
-     * @psalm-return array<int,int>
+     * @psalm-return list<int>
      */
     public function sourceLines(): array
     {
