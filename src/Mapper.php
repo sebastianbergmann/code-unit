@@ -12,7 +12,7 @@ namespace SebastianBergmann\CodeUnit;
 final class Mapper
 {
     /**
-     * @psalm-return array<string,array<int,int>>
+     * @psalm-return array<string,list<int>>
      */
     public function codeUnitsToSourceLines(CodeUnitCollection $codeUnits): array
     {
@@ -29,7 +29,7 @@ final class Mapper
         }
 
         foreach (\array_keys($result) as $sourceFileName) {
-            $result[$sourceFileName] = \array_unique($result[$sourceFileName]);
+            $result[$sourceFileName] = \array_values(\array_unique($result[$sourceFileName]));
 
             \sort($result[$sourceFileName]);
         }
