@@ -114,7 +114,7 @@ final class Mapper
                 $unit = \str_replace('<extended>', '', $unit);
 
                 if (\class_exists($unit)) {
-                    return $this->classAndParentClasses($unit);
+                    return $this->classAndParentClassesAndTraits($unit);
                 }
             }
         }
@@ -208,7 +208,7 @@ final class Mapper
      *
      * @throws ReflectionException
      */
-    private function classAndParentClasses(string $className): CodeUnitCollection
+    private function classAndParentClassesAndTraits(string $className): CodeUnitCollection
     {
         $units = [CodeUnit::forClass($className)];
 
