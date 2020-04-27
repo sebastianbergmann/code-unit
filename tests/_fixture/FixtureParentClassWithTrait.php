@@ -9,7 +9,7 @@
  */
 namespace SebastianBergmann\CodeUnit\Fixture;
 
-class FixtureParentClassWithTrait
+class FixtureParentClassWithTrait extends \stdClass
 {
     use FixtureTrait;
 

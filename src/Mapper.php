@@ -215,13 +215,25 @@ final class Mapper
         $reflector = $this->reflectorForClass($className);
 
         foreach ($this->reflectorForClass($className)->getTraits() as $trait) {
+            if ($trait->isInternal()) {
+                continue;
+            }
+
             $units[] = CodeUnit::forTrait($trait->getName());
         }
 
         while ($reflector = $reflector->getParentClass()) {
+            if ($reflector->isInternal()) {
+                continue;
+            }
+
             $units[] = CodeUnit::forClass($reflector->getName());
 
             foreach ($reflector->getTraits() as $trait) {
+                if ($trait->isInternal()) {
+                    continue;
+                }
+
                 $units[] = CodeUnit::forTrait($trait->getName());
             }
         }
