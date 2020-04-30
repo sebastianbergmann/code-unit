@@ -77,7 +77,7 @@ final class Mapper
                     return $this->publicAndProtectedMethodsOfClass($firstPart);
                 }
 
-                if (method_exists($firstPart, $secondPart)) {
+                if (\method_exists($firstPart, $secondPart)) {
                     return CodeUnitCollection::fromList(CodeUnit::forClassMethod($firstPart, $secondPart));
                 }
             }
