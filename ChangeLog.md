@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [1.0.3] - 2020-06-15
+
+### Changed
+
+* Tests etc. are now ignored for archive exports
+
 ## [1.0.2] - 2020-04-30
 
 ### Fixed
@@ -18,6 +24,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial release
 
+[1.0.3]: https://github.com/sebastianbergmann/code-unit/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/sebastianbergmann/code-unit/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/sebastianbergmann/code-unit/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/sebastianbergmann/code-unit/compare/530c3900e5db9bcb8516da545bef0d62536cedaa...1.0.0
