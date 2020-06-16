@@ -46,7 +46,7 @@ abstract class CodeUnit
             $className,
             $reflector->getFileName(),
             \range(
-                (int) $reflector->getStartLine(),
+                $reflector->getStartLine(),
                 (int) $reflector->getEndLine()
             )
         );
@@ -68,7 +68,7 @@ abstract class CodeUnit
             $className . '::' . $methodName,
             $reflector->getFileName(),
             \range(
-                (int) $reflector->getStartLine(),
+                $reflector->getStartLine(),
                 (int) $reflector->getEndLine()
             )
         );
@@ -90,7 +90,7 @@ abstract class CodeUnit
             $interfaceName,
             $reflector->getFileName(),
             \range(
-                (int) $reflector->getStartLine(),
+                $reflector->getStartLine(),
                 (int) $reflector->getEndLine()
             )
         );
@@ -112,7 +112,7 @@ abstract class CodeUnit
             $interfaceName . '::' . $methodName,
             $reflector->getFileName(),
             \range(
-                (int) $reflector->getStartLine(),
+                $reflector->getStartLine(),
                 (int) $reflector->getEndLine()
             )
         );
@@ -134,7 +134,7 @@ abstract class CodeUnit
             $traitName,
             $reflector->getFileName(),
             \range(
-                (int) $reflector->getStartLine(),
+                $reflector->getStartLine(),
                 (int) $reflector->getEndLine()
             )
         );
@@ -156,7 +156,7 @@ abstract class CodeUnit
             $traitName . '::' . $methodName,
             $reflector->getFileName(),
             \range(
-                (int) $reflector->getStartLine(),
+                $reflector->getStartLine(),
                 (int) $reflector->getEndLine()
             )
         );
@@ -185,7 +185,7 @@ abstract class CodeUnit
             $functionName,
             $reflector->getFileName(),
             \range(
-                (int) $reflector->getStartLine(),
+                $reflector->getStartLine(),
                 (int) $reflector->getEndLine()
             )
         );
