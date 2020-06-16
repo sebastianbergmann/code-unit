@@ -18,6 +18,10 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
  * @covers \SebastianBergmann\CodeUnit\TraitUnit
  * @covers \SebastianBergmann\CodeUnit\CodeUnit
  *
+ * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
+ * @uses \SebastianBergmann\CodeUnit\CodeUnitCollectionIterator
+ * @uses \SebastianBergmann\CodeUnit\Mapper
+ *
  * @testdox TraitUnit
  */
 final class TraitUnitTest extends TestCase

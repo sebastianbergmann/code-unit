@@ -15,6 +15,10 @@ use PHPUnit\Framework\TestCase;
  * @covers \SebastianBergmann\CodeUnit\FunctionUnit
  * @covers \SebastianBergmann\CodeUnit\CodeUnit
  *
+ * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
+ * @uses \SebastianBergmann\CodeUnit\CodeUnitCollectionIterator
+ * @uses \SebastianBergmann\CodeUnit\Mapper
+ *
  * @testdox FunctionUnit
  */
 final class FunctionUnitTest extends TestCase

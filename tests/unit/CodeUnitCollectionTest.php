@@ -18,6 +18,7 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
  * @covers \SebastianBergmann\CodeUnit\CodeUnitCollectionIterator
  *
  * @uses \SebastianBergmann\CodeUnit\CodeUnit
+ * @uses \SebastianBergmann\CodeUnit\Mapper
  *
  * @testdox CodeUnitCollection
  */
