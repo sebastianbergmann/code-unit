@@ -47,7 +47,7 @@ abstract class CodeUnit
             $reflector->getFileName(),
             \range(
                 $reflector->getStartLine(),
-                (int) $reflector->getEndLine()
+                $reflector->getEndLine()
             )
         );
     }
@@ -69,7 +69,7 @@ abstract class CodeUnit
             $reflector->getFileName(),
             \range(
                 $reflector->getStartLine(),
-                (int) $reflector->getEndLine()
+                $reflector->getEndLine()
             )
         );
     }
@@ -91,7 +91,7 @@ abstract class CodeUnit
             $reflector->getFileName(),
             \range(
                 $reflector->getStartLine(),
-                (int) $reflector->getEndLine()
+                $reflector->getEndLine()
             )
         );
     }
@@ -113,7 +113,7 @@ abstract class CodeUnit
             $reflector->getFileName(),
             \range(
                 $reflector->getStartLine(),
-                (int) $reflector->getEndLine()
+                $reflector->getEndLine()
             )
         );
     }
@@ -135,7 +135,7 @@ abstract class CodeUnit
             $reflector->getFileName(),
             \range(
                 $reflector->getStartLine(),
-                (int) $reflector->getEndLine()
+                $reflector->getEndLine()
             )
         );
     }
@@ -157,7 +157,7 @@ abstract class CodeUnit
             $reflector->getFileName(),
             \range(
                 $reflector->getStartLine(),
-                (int) $reflector->getEndLine()
+                $reflector->getEndLine()
             )
         );
     }
@@ -186,7 +186,7 @@ abstract class CodeUnit
             $reflector->getFileName(),
             \range(
                 $reflector->getStartLine(),
-                (int) $reflector->getEndLine()
+                $reflector->getEndLine()
             )
         );
     }
