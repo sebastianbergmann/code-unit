@@ -254,4 +254,21 @@ final class MapperTest extends TestCase
             (new Mapper)->codeUnitsToSourceLines($codeUnits)
         );
     }
+
+    public function testCanMapOverlappingCodeUnitObjectsToArrayWithSourceLines(): void
+    {
+        $codeUnits = CodeUnitCollection::fromList(
+            CodeUnit::forClass(FixtureClass::class),
+            CodeUnit::forClassMethod(FixtureClass::class, 'publicMethod'),
+            CodeUnit::forClassMethod(FixtureClass::class, 'protectedMethod'),
+            CodeUnit::forClassMethod(FixtureClass::class, 'privateMethod'),
+        );
+
+        $this->assertSame(
+            [
+                \realpath(__DIR__ . '/../_fixture/FixtureClass.php') => \range(12, 28),
+            ],
+            (new Mapper)->codeUnitsToSourceLines($codeUnits)
+        );
+    }
 }
