@@ -70,19 +70,19 @@ final class CodeUnitCollectionTest extends TestCase
 
     public function testCanBeIterated(): void
     {
-        $expectedKey = 0;
+        $array = [];
 
         foreach (CodeUnitCollection::fromList($this->interface, $this->class) as $key => $value) {
-            $this->assertSame($expectedKey, $key);
-
-            if ($expectedKey === 0) {
-                $this->assertSame($this->interface, $value);
-            } else {
-                $this->assertSame($this->class, $value);
-            }
-
-            $expectedKey++;
+            $array[$key] = $value;
         }
+
+        $this->assertCount(2, $array);
+
+        $this->assertArrayHasKey(0, $array);
+        $this->assertSame($this->interface, $array[0]);
+
+        $this->assertArrayHasKey(1, $array);
+        $this->assertSame($this->class, $array[1]);
     }
 
     public function testCanBeMergedWithAnotherCollectionOfCodeUnitObjects(): void
