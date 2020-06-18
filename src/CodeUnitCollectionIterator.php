@@ -12,7 +12,7 @@ namespace SebastianBergmann\CodeUnit;
 final class CodeUnitCollectionIterator implements \Iterator
 {
     /**
-     * @var CodeUnit[]
+     * @psalm-var list<CodeUnit>
      */
     private $codeUnits;
 

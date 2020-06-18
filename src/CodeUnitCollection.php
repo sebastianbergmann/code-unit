@@ -12,12 +12,12 @@ namespace SebastianBergmann\CodeUnit;
 final class CodeUnitCollection implements \Countable, \IteratorAggregate
 {
     /**
-     * @var CodeUnit[]
+     * @psalm-var list<CodeUnit>
      */
     private $codeUnits = [];
 
     /**
-     * @param CodeUnit[] $items
+     * @psalm-param list<CodeUnit> $items
      */
     public static function fromArray(array $items): self
     {
@@ -40,7 +40,7 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @return CodeUnit[]
+     * @psalm-return list<CodeUnit>
      */
     public function asArray(): array
     {
