@@ -38,6 +38,7 @@
             "tests/_fixture"
         ],
         "files": [
+            "tests/_fixture/file_with_multiple_code_units.php",
             "tests/_fixture/function.php"
         ]
     },

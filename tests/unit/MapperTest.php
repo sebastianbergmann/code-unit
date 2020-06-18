@@ -10,6 +10,8 @@
 namespace SebastianBergmann\CodeUnit;
 
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherChildClass;
+use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherParentClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherTrait;
 use SebastianBergmann\CodeUnit\Fixture\FixtureChildClassWithTrait;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClass;
@@ -210,7 +212,33 @@ final class MapperTest extends TestCase
         (new Mapper)->stringToCodeUnits('invalid');
     }
 
-    public function testCanMapCodeUnitObjectsToArrayWithSourceLines(): void
+    public function testCanMapCodeUnitObjectsToArrayWithSourceLinesInSingleFile(): void
+    {
+        $codeUnits = CodeUnitCollection::fromList(
+            CodeUnit::forFunction('SebastianBergmann\CodeUnit\Fixture\another_function'),
+            CodeUnit::forClass(FixtureAnotherParentClass::class),
+            CodeUnit::forClass(FixtureAnotherChildClass::class),
+        );
+
+        $this->assertSame(
+            [
+                \realpath(__DIR__ . '/../_fixture/file_with_multiple_code_units.php') => [
+                    12,
+                    13,
+                    14,
+                    16,
+                    17,
+                    18,
+                    20,
+                    21,
+                    22,
+                ],
+            ],
+            (new Mapper)->codeUnitsToSourceLines($codeUnits)
+        );
+    }
+
+    public function testCanMapCodeUnitObjectsToArrayWithSourceLinesInMultipleFiles(): void
     {
         $codeUnits = CodeUnitCollection::fromList(
             CodeUnit::forInterface(FixtureInterface::class),
