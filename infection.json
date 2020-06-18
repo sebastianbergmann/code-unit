@@ -10,6 +10,11 @@
             "ignore": [
                 "SebastianBergmann\\CodeUnit\\Mapper::classAndParentClassesAndTraits"
             ]
+        },
+        "UnwrapArrayValues": {
+            "ignore": [
+                "SebastianBergmann\\CodeUnit\\Mapper::codeUnitsToSourceLines"
+            ]
         }
     },
     "minMsi": 100,
