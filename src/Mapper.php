@@ -228,7 +228,7 @@ final class Mapper
 
         while ($reflector = $reflector->getParentClass()) {
             if ($reflector->isInternal()) {
-                continue;
+                break;
             }
 
             $units[] = CodeUnit::forClass($reflector->getName());
