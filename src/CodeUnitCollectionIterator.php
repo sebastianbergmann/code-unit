@@ -33,7 +33,7 @@ final class CodeUnitCollectionIterator implements \Iterator
 
     public function valid(): bool
     {
-        return $this->position < \count($this->codeUnits);
+        return isset($this->codeUnits[$this->position]);
     }
 
     public function key(): int
