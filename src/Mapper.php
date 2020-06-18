@@ -218,7 +218,9 @@ final class Mapper
 
         foreach ($this->reflectorForClass($className)->getTraits() as $trait) {
             if ($trait->isInternal()) {
+                // @codeCoverageIgnoreStart
                 continue;
+                // @codeCoverageIgnoreEnd
             }
 
             $units[] = CodeUnit::forTrait($trait->getName());
@@ -233,7 +235,9 @@ final class Mapper
 
             foreach ($reflector->getTraits() as $trait) {
                 if ($trait->isInternal()) {
+                    // @codeCoverageIgnoreStart
                     continue;
+                    // @codeCoverageIgnoreEnd
                 }
 
                 $units[] = CodeUnit::forTrait($trait->getName());
