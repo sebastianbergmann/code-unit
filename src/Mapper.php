@@ -112,12 +112,10 @@ final class Mapper
                 return CodeUnitCollection::fromList(CodeUnit::forFunction($unit));
             }
 
-            if (\strpos($unit, '<extended>') !== false) {
-                $unit = \str_replace('<extended>', '', $unit);
+            $unit = \str_replace('<extended>', '', $unit);
 
-                if (\class_exists($unit)) {
-                    return $this->classAndParentClassesAndTraits($unit);
-                }
+            if (\class_exists($unit)) {
+                return $this->classAndParentClassesAndTraits($unit);
             }
         }
 
