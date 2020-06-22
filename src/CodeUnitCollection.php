@@ -9,7 +9,12 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
-final class CodeUnitCollection implements \Countable, \IteratorAggregate
+use function array_merge;
+use function count;
+use Countable;
+use IteratorAggregate;
+
+final class CodeUnitCollection implements Countable, IteratorAggregate
 {
     /**
      * @psalm-var list<CodeUnit>
@@ -54,7 +59,7 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
 
     public function count(): int
     {
-        return \count($this->codeUnits);
+        return count($this->codeUnits);
     }
 
     public function isEmpty(): bool
@@ -65,7 +70,7 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
     public function mergeWith(self $other): self
     {
         return self::fromArray(
-            \array_merge(
+            array_merge(
                 $this->asArray(),
                 $other->asArray()
             )

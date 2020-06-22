@@ -9,7 +9,9 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
-final class CodeUnitCollectionIterator implements \Iterator
+use Iterator;
+
+final class CodeUnitCollectionIterator implements Iterator
 {
     /**
      * @psalm-var list<CodeUnit>

@@ -9,6 +9,8 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
+use function range;
+use function realpath;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
@@ -39,8 +41,8 @@ final class TraitUnitTest extends TestCase
         $this->assertFalse($unit->isFunction());
 
         $this->assertSame(FixtureTrait::class, $unit->name());
-        $this->assertSame(\realpath(__DIR__ . '/../_fixture/FixtureTrait.php'), $unit->sourceFileName());
-        $this->assertSame(\range(12, 18), $unit->sourceLines());
+        $this->assertSame(realpath(__DIR__ . '/../_fixture/FixtureTrait.php'), $unit->sourceFileName());
+        $this->assertSame(range(12, 18), $unit->sourceLines());
     }
 
     public function testCannotBeCreatedForClass(): void

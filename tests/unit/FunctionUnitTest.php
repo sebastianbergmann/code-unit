@@ -9,6 +9,8 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
+use function range;
+use function realpath;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -36,8 +38,8 @@ final class FunctionUnitTest extends TestCase
         $this->assertTrue($unit->isFunction());
 
         $this->assertSame('SebastianBergmann\CodeUnit\Fixture\f', $unit->name());
-        $this->assertSame(\realpath(__DIR__ . '/../_fixture/function.php'), $unit->sourceFileName());
-        $this->assertSame(\range(12, 15), $unit->sourceLines());
+        $this->assertSame(realpath(__DIR__ . '/../_fixture/function.php'), $unit->sourceFileName());
+        $this->assertSame(range(12, 15), $unit->sourceLines());
     }
 
     public function testCannotBeCreatedForInternalFunction(): void

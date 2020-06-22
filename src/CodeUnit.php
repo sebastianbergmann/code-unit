@@ -9,6 +9,12 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
+use function range;
+use function sprintf;
+use ReflectionClass;
+use ReflectionFunction;
+use ReflectionMethod;
+
 /**
  * @psalm-immutable
  */
@@ -45,7 +51,7 @@ abstract class CodeUnit
         return new ClassUnit(
             $className,
             $reflector->getFileName(),
-            \range(
+            range(
                 $reflector->getStartLine(),
                 $reflector->getEndLine()
             )
@@ -67,7 +73,7 @@ abstract class CodeUnit
         return new ClassMethodUnit(
             $className . '::' . $methodName,
             $reflector->getFileName(),
-            \range(
+            range(
                 $reflector->getStartLine(),
                 $reflector->getEndLine()
             )
@@ -89,7 +95,7 @@ abstract class CodeUnit
         return new InterfaceUnit(
             $interfaceName,
             $reflector->getFileName(),
-            \range(
+            range(
                 $reflector->getStartLine(),
                 $reflector->getEndLine()
             )
@@ -111,7 +117,7 @@ abstract class CodeUnit
         return new InterfaceMethodUnit(
             $interfaceName . '::' . $methodName,
             $reflector->getFileName(),
-            \range(
+            range(
                 $reflector->getStartLine(),
                 $reflector->getEndLine()
             )
@@ -133,7 +139,7 @@ abstract class CodeUnit
         return new TraitUnit(
             $traitName,
             $reflector->getFileName(),
-            \range(
+            range(
                 $reflector->getStartLine(),
                 $reflector->getEndLine()
             )
@@ -155,7 +161,7 @@ abstract class CodeUnit
         return new TraitMethodUnit(
             $traitName . '::' . $methodName,
             $reflector->getFileName(),
-            \range(
+            range(
                 $reflector->getStartLine(),
                 $reflector->getEndLine()
             )
@@ -174,7 +180,7 @@ abstract class CodeUnit
 
         if (!$reflector->isUserDefined()) {
             throw new InvalidCodeUnitException(
-                \sprintf(
+                sprintf(
                     '"%s" is not a user-defined function',
                     $functionName
                 )
@@ -184,7 +190,7 @@ abstract class CodeUnit
         return new FunctionUnit(
             $functionName,
             $reflector->getFileName(),
-            \range(
+            range(
                 $reflector->getStartLine(),
                 $reflector->getEndLine()
             )
@@ -262,11 +268,11 @@ abstract class CodeUnit
     private static function ensureUserDefinedClass(string $className): void
     {
         try {
-            $reflector = new \ReflectionClass($className);
+            $reflector = new ReflectionClass($className);
 
             if ($reflector->isInterface()) {
                 throw new InvalidCodeUnitException(
-                    \sprintf(
+                    sprintf(
                         '"%s" is an interface and not a class',
                         $className
                     )
@@ -275,7 +281,7 @@ abstract class CodeUnit
 
             if ($reflector->isTrait()) {
                 throw new InvalidCodeUnitException(
-                    \sprintf(
+                    sprintf(
                         '"%s" is a trait and not a class',
                         $className
                     )
@@ -284,7 +290,7 @@ abstract class CodeUnit
 
             if (!$reflector->isUserDefined()) {
                 throw new InvalidCodeUnitException(
-                    \sprintf(
+                    sprintf(
                         '"%s" is not a user-defined class',
                         $className
                     )
@@ -309,11 +315,11 @@ abstract class CodeUnit
     private static function ensureUserDefinedInterface(string $interfaceName): void
     {
         try {
-            $reflector = new \ReflectionClass($interfaceName);
+            $reflector = new ReflectionClass($interfaceName);
 
             if (!$reflector->isInterface()) {
                 throw new InvalidCodeUnitException(
-                    \sprintf(
+                    sprintf(
                         '"%s" is not an interface',
                         $interfaceName
                     )
@@ -322,7 +328,7 @@ abstract class CodeUnit
 
             if (!$reflector->isUserDefined()) {
                 throw new InvalidCodeUnitException(
-                    \sprintf(
+                    sprintf(
                         '"%s" is not a user-defined interface',
                         $interfaceName
                     )
@@ -347,11 +353,11 @@ abstract class CodeUnit
     private static function ensureUserDefinedTrait(string $traitName): void
     {
         try {
-            $reflector = new \ReflectionClass($traitName);
+            $reflector = new ReflectionClass($traitName);
 
             if (!$reflector->isTrait()) {
                 throw new InvalidCodeUnitException(
-                    \sprintf(
+                    sprintf(
                         '"%s" is not a trait',
                         $traitName
                     )
@@ -361,7 +367,7 @@ abstract class CodeUnit
             // @codeCoverageIgnoreStart
             if (!$reflector->isUserDefined()) {
                 throw new InvalidCodeUnitException(
-                    \sprintf(
+                    sprintf(
                         '"%s" is not a user-defined trait',
                         $traitName
                     )
@@ -382,10 +388,10 @@ abstract class CodeUnit
      *
      * @throws ReflectionException
      */
-    private static function reflectorForClass(string $className): \ReflectionClass
+    private static function reflectorForClass(string $className): ReflectionClass
     {
         try {
-            return new \ReflectionClass($className);
+            return new ReflectionClass($className);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
@@ -402,10 +408,10 @@ abstract class CodeUnit
      *
      * @throws ReflectionException
      */
-    private static function reflectorForClassMethod(string $className, string $methodName): \ReflectionMethod
+    private static function reflectorForClassMethod(string $className, string $methodName): ReflectionMethod
     {
         try {
-            return new \ReflectionMethod($className, $methodName);
+            return new ReflectionMethod($className, $methodName);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
@@ -422,10 +428,10 @@ abstract class CodeUnit
      *
      * @throws ReflectionException
      */
-    private static function reflectorForFunction(string $functionName): \ReflectionFunction
+    private static function reflectorForFunction(string $functionName): ReflectionFunction
     {
         try {
-            return new \ReflectionFunction($functionName);
+            return new ReflectionFunction($functionName);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
             throw new ReflectionException(

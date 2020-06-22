@@ -9,6 +9,8 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
+use function realpath;
+use Iterator;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
@@ -39,7 +41,7 @@ final class InterfaceMethodUnitTest extends TestCase
         $this->assertFalse($unit->isFunction());
 
         $this->assertSame(FixtureInterface::class . '::method', $unit->name());
-        $this->assertSame(\realpath(__DIR__ . '/../_fixture/FixtureInterface.php'), $unit->sourceFileName());
+        $this->assertSame(realpath(__DIR__ . '/../_fixture/FixtureInterface.php'), $unit->sourceFileName());
         $this->assertSame([14], $unit->sourceLines());
     }
 
@@ -47,7 +49,7 @@ final class InterfaceMethodUnitTest extends TestCase
     {
         $this->expectException(InvalidCodeUnitException::class);
 
-        CodeUnit::forInterfaceMethod(\Iterator::class, 'current');
+        CodeUnit::forInterfaceMethod(Iterator::class, 'current');
     }
 
     public function testCannotBeCreatedForClassMethod(): void

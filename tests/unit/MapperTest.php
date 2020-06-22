@@ -9,6 +9,8 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
+use function range;
+use function realpath;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherChildClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherParentClass;
@@ -222,7 +224,7 @@ final class MapperTest extends TestCase
 
         $this->assertSame(
             [
-                \realpath(__DIR__ . '/../_fixture/file_with_multiple_code_units.php') => [
+                realpath(__DIR__ . '/../_fixture/file_with_multiple_code_units.php') => [
                     12,
                     13,
                     14,
@@ -248,8 +250,8 @@ final class MapperTest extends TestCase
 
         $this->assertSame(
             [
-                \realpath(__DIR__ . '/../_fixture/FixtureClass.php')     => \range(12, 28),
-                \realpath(__DIR__ . '/../_fixture/FixtureInterface.php') => \range(12, 15),
+                realpath(__DIR__ . '/../_fixture/FixtureClass.php')     => range(12, 28),
+                realpath(__DIR__ . '/../_fixture/FixtureInterface.php') => range(12, 15),
             ],
             (new Mapper)->codeUnitsToSourceLines($codeUnits)
         );
@@ -266,7 +268,7 @@ final class MapperTest extends TestCase
 
         $this->assertSame(
             [
-                \realpath(__DIR__ . '/../_fixture/FixtureClass.php') => \range(12, 28),
+                realpath(__DIR__ . '/../_fixture/FixtureClass.php') => range(12, 28),
             ],
             (new Mapper)->codeUnitsToSourceLines($codeUnits)
         );

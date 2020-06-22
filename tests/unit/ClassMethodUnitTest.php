@@ -9,6 +9,9 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
+use function range;
+use function realpath;
+use Exception;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
@@ -39,15 +42,15 @@ final class ClassMethodUnitTest extends TestCase
         $this->assertFalse($unit->isFunction());
 
         $this->assertSame(FixtureClass::class . '::publicMethod', $unit->name());
-        $this->assertSame(\realpath(__DIR__ . '/../_fixture/FixtureClass.php'), $unit->sourceFileName());
-        $this->assertSame(\range(14, 17), $unit->sourceLines());
+        $this->assertSame(realpath(__DIR__ . '/../_fixture/FixtureClass.php'), $unit->sourceFileName());
+        $this->assertSame(range(14, 17), $unit->sourceLines());
     }
 
     public function testCannotBeCreatedForMethodOfInternalClass(): void
     {
         $this->expectException(InvalidCodeUnitException::class);
 
-        CodeUnit::forClassMethod(\Exception::class, 'getMessage');
+        CodeUnit::forClassMethod(Exception::class, 'getMessage');
     }
 
     public function testCannotBeCreatedForInterfaceMethod(): void

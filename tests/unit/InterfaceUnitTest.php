@@ -9,6 +9,9 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
+use function range;
+use function realpath;
+use Iterator;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
@@ -39,15 +42,15 @@ final class InterfaceUnitTest extends TestCase
         $this->assertFalse($unit->isFunction());
 
         $this->assertSame(FixtureInterface::class, $unit->name());
-        $this->assertSame(\realpath(__DIR__ . '/../_fixture/FixtureInterface.php'), $unit->sourceFileName());
-        $this->assertSame(\range(12, 15), $unit->sourceLines());
+        $this->assertSame(realpath(__DIR__ . '/../_fixture/FixtureInterface.php'), $unit->sourceFileName());
+        $this->assertSame(range(12, 15), $unit->sourceLines());
     }
 
     public function testCannotBeCreatedForInternalInterface(): void
     {
         $this->expectException(InvalidCodeUnitException::class);
 
-        CodeUnit::forInterface(\Iterator::class);
+        CodeUnit::forInterface(Iterator::class);
     }
 
     public function testCannotBeCreatedForClass(): void
