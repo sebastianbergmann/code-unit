@@ -21,6 +21,7 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureClassWithTrait;
 use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
 use SebastianBergmann\CodeUnit\Fixture\FixtureParentClassWithTrait;
 use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
+use SebastianBergmann\CodeUnit\Fixture\Getopt;
 
 /**
  * @covers \SebastianBergmann\CodeUnit\Mapper
@@ -272,5 +273,15 @@ final class MapperTest extends TestCase
             ],
             (new Mapper)->codeUnitsToSourceLines($codeUnits)
         );
+    }
+
+    /**
+     * @ticket https://github.com/sebastianbergmann/code-unit/issues/3
+     */
+    public function testIssue3(): void
+    {
+        $units = (new Mapper)->stringToCodeUnits(Getopt::class . '::getopt');
+
+        $this->assertSame(Getopt::class . '::getopt', $units->asArray()[0]->name());
     }
 }
