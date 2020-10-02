@@ -215,6 +215,10 @@ final class Mapper
         $units = [];
 
         foreach ($this->reflectorForClass($className)->getMethods($filter) as $method) {
+            if ($method->getDeclaringClass()->isInternal()) {
+                continue;
+            }
+
             $units[] = CodeUnit::forClassMethod($className, $method->getName());
         }
 
