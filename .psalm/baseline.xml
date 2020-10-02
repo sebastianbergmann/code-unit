@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.13.1@afd8874a9e4562eac42a02de90e42e430c3a1db1">
+<files psalm-version="3.16@d03e5ef057d6adc656c0ff7e166c50b73b4f48f3">
   <file src="src/Mapper.php">
-    <ArgumentTypeCoercion occurrences="2">
-      <code>$units</code>
-      <code>$units</code>
+    <ArgumentTypeCoercion occurrences="16">
+      <code>$firstPart</code>
+      <code>$firstPart</code>
+      <code>$firstPart</code>
+      <code>$firstPart</code>
+      <code>$firstPart</code>
+      <code>$firstPart</code>
+      <code>$firstPart</code>
+      <code>$firstPart</code>
+      <code>$firstPart</code>
+      <code>$secondPart</code>
+      <code>$unit</code>
+      <code>$unit</code>
+      <code>$unit</code>
+      <code>$unit</code>
+      <code>$unit</code>
+      <code>$unit</code>
     </ArgumentTypeCoercion>
   </file>
 </files>
