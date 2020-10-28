@@ -2,6 +2,7 @@
 /.gitignore     export-ignore
 /.github        export-ignore
 /.phive         export-ignore
+/.psalm         export-ignore
 /tests          export-ignore
 /tools          export-ignore
 /tools/*        binary
@@ -11,6 +12,5 @@
 /build.xml      export-ignore
 /infection.json export-ignore
 /phpunit.xml    export-ignore
-/psalm.xml      export-ignore
 
 *.php diff=php
