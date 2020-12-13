@@ -20,21 +20,14 @@ use ReflectionMethod;
  */
 abstract class CodeUnit
 {
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
+
+    private string $sourceFileName;
 
     /**
-     * @var string
-     */
-    private $sourceFileName;
-
-    /**
-     * @var array
      * @psalm-var list<int>
      */
-    private $sourceLines;
+    private array $sourceLines;
 
     /**
      * @psalm-param class-string $className

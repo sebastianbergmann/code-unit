@@ -19,7 +19,7 @@ final class CodeUnitCollection implements Countable, IteratorAggregate
     /**
      * @psalm-var list<CodeUnit>
      */
-    private $codeUnits = [];
+    private array $codeUnits = [];
 
     /**
      * @psalm-param list<CodeUnit> $items

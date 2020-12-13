@@ -16,12 +16,9 @@ final class CodeUnitCollectionIterator implements Iterator
     /**
      * @psalm-var list<CodeUnit>
      */
-    private $codeUnits;
+    private array $codeUnits;
 
-    /**
-     * @var int
-     */
-    private $position = 0;
+    private int $position = 0;
 
     public function __construct(CodeUnitCollection $collection)
     {
