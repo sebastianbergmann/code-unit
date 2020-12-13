@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [2.0.0] - 2021-02-05
+
+### Removed
+
+* This component is no longer supported on PHP 7.3
+
 ## [1.0.8] - 2020-10-26
 
 ### Fixed
@@ -54,6 +60,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial release
 
+[2.0.0]: https://github.com/sebastianbergmann/code-unit/compare/1.0.8...master
 [1.0.8]: https://github.com/sebastianbergmann/code-unit/compare/1.0.7...1.0.8
 [1.0.7]: https://github.com/sebastianbergmann/code-unit/compare/1.0.6...1.0.7
 [1.0.6]: https://github.com/sebastianbergmann/code-unit/compare/1.0.5...1.0.6
