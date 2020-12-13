@@ -21,7 +21,6 @@ use function ksort;
 use function method_exists;
 use function sort;
 use function sprintf;
-use function str_replace;
 use function strpos;
 use function trait_exists;
 use ReflectionClass;
@@ -72,30 +71,6 @@ final class Mapper
             }
 
             if ($this->isUserDefinedClass($firstPart)) {
-                if ($secondPart === '<public>') {
-                    return $this->publicMethodsOfClass($firstPart);
-                }
-
-                if ($secondPart === '<!public>') {
-                    return $this->protectedAndPrivateMethodsOfClass($firstPart);
-                }
-
-                if ($secondPart === '<protected>') {
-                    return $this->protectedMethodsOfClass($firstPart);
-                }
-
-                if ($secondPart === '<!protected>') {
-                    return $this->publicAndPrivateMethodsOfClass($firstPart);
-                }
-
-                if ($secondPart === '<private>') {
-                    return $this->privateMethodsOfClass($firstPart);
-                }
-
-                if ($secondPart === '<!private>') {
-                    return $this->publicAndProtectedMethodsOfClass($firstPart);
-                }
-
                 if ($this->isUserDefinedMethod($firstPart, $secondPart)) {
                     return CodeUnitCollection::fromList(CodeUnit::forClassMethod($firstPart, $secondPart));
                 }
@@ -136,12 +111,6 @@ final class Mapper
             if ($this->isUserDefinedFunction($unit)) {
                 return CodeUnitCollection::fromList(CodeUnit::forFunction($unit));
             }
-
-            $unit = str_replace('<extended>', '', $unit);
-
-            if ($this->isUserDefinedClass($unit)) {
-                return $this->classAndParentClassesAndTraits($unit);
-            }
         }
 
         throw new InvalidCodeUnitException(
@@ -150,128 +119,6 @@ final class Mapper
                 $unit
             )
         );
-    }
-
-    /**
-     * @psalm-param class-string $className
-     *
-     * @throws ReflectionException
-     */
-    private function publicMethodsOfClass(string $className): CodeUnitCollection
-    {
-        return $this->methodsOfClass($className, ReflectionMethod::IS_PUBLIC);
-    }
-
-    /**
-     * @psalm-param class-string $className
-     *
-     * @throws ReflectionException
-     */
-    private function publicAndProtectedMethodsOfClass(string $className): CodeUnitCollection
-    {
-        return $this->methodsOfClass($className, ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED);
-    }
-
-    /**
-     * @psalm-param class-string $className
-     *
-     * @throws ReflectionException
-     */
-    private function publicAndPrivateMethodsOfClass(string $className): CodeUnitCollection
-    {
-        return $this->methodsOfClass($className, ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PRIVATE);
-    }
-
-    /**
-     * @psalm-param class-string $className
-     *
-     * @throws ReflectionException
-     */
-    private function protectedMethodsOfClass(string $className): CodeUnitCollection
-    {
-        return $this->methodsOfClass($className, ReflectionMethod::IS_PROTECTED);
-    }
-
-    /**
-     * @psalm-param class-string $className
-     *
-     * @throws ReflectionException
-     */
-    private function protectedAndPrivateMethodsOfClass(string $className): CodeUnitCollection
-    {
-        return $this->methodsOfClass($className, ReflectionMethod::IS_PROTECTED | ReflectionMethod::IS_PRIVATE);
-    }
-
-    /**
-     * @psalm-param class-string $className
-     *
-     * @throws ReflectionException
-     */
-    private function privateMethodsOfClass(string $className): CodeUnitCollection
-    {
-        return $this->methodsOfClass($className, ReflectionMethod::IS_PRIVATE);
-    }
-
-    /**
-     * @psalm-param class-string $className
-     *
-     * @throws ReflectionException
-     */
-    private function methodsOfClass(string $className, int $filter): CodeUnitCollection
-    {
-        $units = [];
-
-        foreach ($this->reflectorForClass($className)->getMethods($filter) as $method) {
-            if (!$method->isUserDefined()) {
-                continue;
-            }
-
-            $units[] = CodeUnit::forClassMethod($className, $method->getName());
-        }
-
-        return CodeUnitCollection::fromArray($units);
-    }
-
-    /**
-     * @psalm-param class-string $className
-     *
-     * @throws ReflectionException
-     */
-    private function classAndParentClassesAndTraits(string $className): CodeUnitCollection
-    {
-        $units = [CodeUnit::forClass($className)];
-
-        $reflector = $this->reflectorForClass($className);
-
-        foreach ($this->reflectorForClass($className)->getTraits() as $trait) {
-            if (!$trait->isUserDefined()) {
-                // @codeCoverageIgnoreStart
-                continue;
-                // @codeCoverageIgnoreEnd
-            }
-
-            $units[] = CodeUnit::forTrait($trait->getName());
-        }
-
-        while ($reflector = $reflector->getParentClass()) {
-            if (!$reflector->isUserDefined()) {
-                break;
-            }
-
-            $units[] = CodeUnit::forClass($reflector->getName());
-
-            foreach ($reflector->getTraits() as $trait) {
-                if (!$trait->isUserDefined()) {
-                    // @codeCoverageIgnoreStart
-                    continue;
-                    // @codeCoverageIgnoreEnd
-                }
-
-                $units[] = CodeUnit::forTrait($trait->getName());
-            }
-        }
-
-        return CodeUnitCollection::fromArray($units);
     }
 
     /**

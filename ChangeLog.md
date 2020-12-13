@@ -6,6 +6,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Removed
 
+* `SebastianBergmann\CodeUnit\Mapper::stringToCodeUnits()` no longer supports `ClassName<*>`
 * This component is no longer supported on PHP 7.3
 
 ## [1.0.8] - 2020-10-26

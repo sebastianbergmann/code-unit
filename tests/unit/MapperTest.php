@@ -14,15 +14,11 @@ use function realpath;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherChildClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherParentClass;
-use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherTrait;
-use SebastianBergmann\CodeUnit\Fixture\FixtureChildClassWithTrait;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClassWithTrait;
 use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
-use SebastianBergmann\CodeUnit\Fixture\FixtureParentClassWithTrait;
 use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
 use SebastianBergmann\CodeUnit\Fixture\Getopt;
-use SebastianBergmann\CodeUnit\Fixture\Issue5Exception;
 
 /**
  * @covers \SebastianBergmann\CodeUnit\Mapper
@@ -77,20 +73,6 @@ final class MapperTest extends TestCase
     }
 
     /**
-     * @testdox Can map 'ClassName<extended>' string to code unit objects
-     */
-    public function testCanMapStringWithClassNameAndSelectorForParentClassesToCodeUnitObjects(): void
-    {
-        $units = (new Mapper)->stringToCodeUnits(FixtureChildClassWithTrait::class . '<extended>');
-
-        $this->assertCount(4, $units);
-        $this->assertSame(FixtureChildClassWithTrait::class, $units->asArray()[0]->name());
-        $this->assertSame(FixtureAnotherTrait::class, $units->asArray()[1]->name());
-        $this->assertSame(FixtureParentClassWithTrait::class, $units->asArray()[2]->name());
-        $this->assertSame(FixtureTrait::class, $units->asArray()[3]->name());
-    }
-
-    /**
      * @testdox Can map 'ClassName::methodName' string to code unit objects
      */
     public function testCanMapStringWithClassNameAndMethodNameToCodeUnitObjects(): void
@@ -98,75 +80,6 @@ final class MapperTest extends TestCase
         $units = (new Mapper)->stringToCodeUnits(FixtureClass::class . '::publicMethod');
 
         $this->assertSame(FixtureClass::class . '::publicMethod', $units->asArray()[0]->name());
-    }
-
-    /**
-     * @testdox Can map 'ClassName::<public>' string to code unit objects
-     */
-    public function testCanMapStringWithClassNameAndPublicMethodSelectorToCodeUnitObjects(): void
-    {
-        $units = (new Mapper)->stringToCodeUnits(FixtureClass::class . '::<public>');
-
-        $this->assertCount(1, $units);
-        $this->assertSame(FixtureClass::class . '::publicMethod', $units->asArray()[0]->name());
-    }
-
-    /**
-     * @testdox Can map 'ClassName::<!public>' string to code unit objects
-     */
-    public function testCanMapStringWithClassNameAndNoPublicMethodSelectorToCodeUnitObjects(): void
-    {
-        $units = (new Mapper)->stringToCodeUnits(FixtureClass::class . '::<!public>');
-
-        $this->assertCount(2, $units);
-        $this->assertSame(FixtureClass::class . '::protectedMethod', $units->asArray()[0]->name());
-        $this->assertSame(FixtureClass::class . '::privateMethod', $units->asArray()[1]->name());
-    }
-
-    /**
-     * @testdox Can map 'ClassName::<protected>' string to code unit objects
-     */
-    public function testCanMapStringWithClassNameAndProtectedMethodSelectorToCodeUnitObjects(): void
-    {
-        $units = (new Mapper)->stringToCodeUnits(FixtureClass::class . '::<protected>');
-
-        $this->assertCount(1, $units);
-        $this->assertSame(FixtureClass::class . '::protectedMethod', $units->asArray()[0]->name());
-    }
-
-    /**
-     * @testdox Can map 'ClassName::<!protected>' string to code unit objects
-     */
-    public function testCanMapStringWithClassNameAndNoProtectedMethodSelectorToCodeUnitObjects(): void
-    {
-        $units = (new Mapper)->stringToCodeUnits(FixtureClass::class . '::<!protected>');
-
-        $this->assertCount(2, $units);
-        $this->assertSame(FixtureClass::class . '::publicMethod', $units->asArray()[0]->name());
-        $this->assertSame(FixtureClass::class . '::privateMethod', $units->asArray()[1]->name());
-    }
-
-    /**
-     * @testdox Can map 'ClassName::<private>' string to code unit objects
-     */
-    public function testCanMapStringWithClassNameAndPrivateMethodSelectorToCodeUnitObjects(): void
-    {
-        $units = (new Mapper)->stringToCodeUnits(FixtureClass::class . '::<private>');
-
-        $this->assertCount(1, $units);
-        $this->assertSame(FixtureClass::class . '::privateMethod', $units->asArray()[0]->name());
-    }
-
-    /**
-     * @testdox Can map 'ClassName::<!private>' string to code unit objects
-     */
-    public function testCanMapStringWithClassNameAndNoPrivateMethodSelectorToCodeUnitObjects(): void
-    {
-        $units = (new Mapper)->stringToCodeUnits(FixtureClass::class . '::<!private>');
-
-        $this->assertCount(2, $units);
-        $this->assertSame(FixtureClass::class . '::publicMethod', $units->asArray()[0]->name());
-        $this->assertSame(FixtureClass::class . '::protectedMethod', $units->asArray()[1]->name());
     }
 
     /**
@@ -284,15 +197,5 @@ final class MapperTest extends TestCase
         $units = (new Mapper)->stringToCodeUnits(Getopt::class . '::getopt');
 
         $this->assertSame(Getopt::class . '::getopt', $units->asArray()[0]->name());
-    }
-
-    /**
-     * @ticket https://github.com/sebastianbergmann/code-unit/issues/5
-     */
-    public function testIssue5(): void
-    {
-        $units = (new Mapper)->stringToCodeUnits(Issue5Exception::class . '::<!public>');
-
-        $this->assertCount(0, $units->asArray());
     }
 }
