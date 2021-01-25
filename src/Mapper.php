@@ -66,7 +66,7 @@ final class Mapper
         if (strpos($unit, '::') !== false) {
             [$firstPart, $secondPart] = explode('::', $unit);
 
-            if (empty($firstPart) && $this->isUserDefinedFunction($secondPart)) {
+            if ($this->isUserDefinedFunction($secondPart)) {
                 return CodeUnitCollection::fromList(CodeUnit::forFunction($secondPart));
             }
 
