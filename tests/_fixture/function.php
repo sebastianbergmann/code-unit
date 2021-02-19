@@ -20,4 +20,9 @@ namespace
     {
         return 1;
     }
+
+    class file
+    {
+        public function test(): void {}
+    }
 }

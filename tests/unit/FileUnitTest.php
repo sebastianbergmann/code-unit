@@ -41,7 +41,7 @@ final class FileUnitTest extends TestCase
 
         $this->assertSame('file:' . $file, $unit->name());
         $this->assertSame(realpath($file), $unit->sourceFileName());
-        $this->assertSame(range(1, 53), $unit->sourceLines());
+        $this->assertSame(range(1, 65), $unit->sourceLines());
     }
 
     public function testCannotBeCreatedForNonExistentFile(): void
@@ -49,5 +49,17 @@ final class FileUnitTest extends TestCase
         $this->expectException(InvalidCodeUnitException::class);
 
         CodeUnit::forAbsoluteFile(__DIR__ . '/FileUnitTest2.php');
+    }
+
+    public function testCannotBeCreatedForUnreadableFile(): void
+    {
+        $tmpFile = tmpfile();
+        $fileName= stream_get_meta_data($tmpFile)['uri'];
+        $this->assertTrue(chmod($fileName, 0000));
+        $this->assertFalse(is_readable($fileName));
+
+        $this->expectException(InvalidCodeUnitException::class);
+
+        CodeUnit::forAbsoluteFile($fileName);
     }
 }
