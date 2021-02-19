@@ -58,6 +58,8 @@ jobs:
           extensions: intl
 
       - name: Run roave/backward-compatibility-check
+        env:
+          COMPOSER_ROOT_VERSION: dev-master
         run: ./tools/roave-backward-compatibility-check --from=1.0.8
 
   tests:
