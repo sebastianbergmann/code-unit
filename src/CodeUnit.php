@@ -74,6 +74,24 @@ abstract class CodeUnit
     }
 
     /**
+     * @throws InvalidCodeUnitException
+     */
+    public static function forAbsoluteFile(string $absoluteFileName): FileUnit
+    {
+        self::ensureFileExistsAndIsReadable($absoluteFileName);
+
+        return new FileUnit(
+            'file:' . $absoluteFileName,
+            $absoluteFileName,
+            range(
+                1,
+                count(file($absoluteFileName))
+            )
+        );
+    }
+
+
+    /**
      * @psalm-param class-string $interfaceName
      *
      * @throws InvalidCodeUnitException
@@ -251,6 +269,26 @@ abstract class CodeUnit
     public function isFunction(): bool
     {
         return false;
+    }
+
+    public function isFile(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @throws InvalidCodeUnitException
+     */
+    private static function ensureFileExistsAndIsReadable(string $absoluteFileName): void
+    {
+        if (!(file_exists($absoluteFileName) && is_readable($absoluteFileName))) {
+            throw new InvalidCodeUnitException(
+                sprintf(
+                    'file "%s" does not exist or is not readable',
+                    $absoluteFileName
+                )
+            );
+        }
     }
 
     /**
