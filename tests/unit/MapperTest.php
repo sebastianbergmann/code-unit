@@ -123,7 +123,7 @@ final class MapperTest extends TestCase
     }
 
     /**
-     * @testdox Can map 'file::[[absolute-path]]' string to code unit objects
+     * @testdox Can map 'file:[[absolute-path]]' string to code unit objects
      */
     public function testCanMapStringWithFileNameToCodeUnitObjects(): void
     {
@@ -132,6 +132,18 @@ final class MapperTest extends TestCase
         $this->assertSame('file:' . realpath(__FILE__), $units->asArray()[0]->name());
     }
 
+    public function testCanMapClassThatLooksLikeFileAnnotation(): void
+    {
+        $units = (new Mapper)->stringToCodeUnits(\file::class . '::test');
+        $this->assertInstanceOf(ClassMethodUnit::class, $units->asArray()[0]);
+    }
+
+    public function testCannotMapBadFileAnnotation(): void
+    {
+        $this->expectException(InvalidCodeUnitException::class);
+
+        (new Mapper)->stringToCodeUnits('not a file:' . realpath(__FILE__));
+    }
     public function testCannotMapInvalidStringToCodeUnitObjects(): void
     {
         $this->expectException(InvalidCodeUnitException::class);

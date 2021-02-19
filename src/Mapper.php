@@ -63,7 +63,9 @@ final class Mapper
      */
     public function stringToCodeUnits(string $unit): CodeUnitCollection
     {
-        if (strpos($unit, '::') !== false) {
+        if (preg_match('~^file:(/.*)$~', $unit, $matches)) {
+            return CodeUnitCollection::fromArray([CodeUnit::forAbsoluteFile($matches[1])]);
+        } elseif (strpos($unit, '::') !== false) {
             [$firstPart, $secondPart] = explode('::', $unit);
 
             if ($this->isUserDefinedFunction($secondPart)) {
@@ -83,8 +85,6 @@ final class Mapper
             if ($this->isUserDefinedTrait($firstPart)) {
                 return CodeUnitCollection::fromList(CodeUnit::forTraitMethod($firstPart, $secondPart));
             }
-        } elseif (preg_match('/^file:(.*)$/', $unit, $matches)) {
-            return CodeUnitCollection::fromArray([CodeUnit::forAbsoluteFile($matches[1])]);
         } else {
             if ($this->isUserDefinedClass($unit)) {
                 $units = [CodeUnit::forClass($unit)];
