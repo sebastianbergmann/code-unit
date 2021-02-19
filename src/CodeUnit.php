@@ -90,7 +90,6 @@ abstract class CodeUnit
         );
     }
 
-
     /**
      * @psalm-param class-string $interfaceName
      *

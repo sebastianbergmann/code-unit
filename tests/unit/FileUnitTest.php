@@ -9,9 +9,9 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
-use PHPUnit\Framework\TestCase;
 use function range;
 use function realpath;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \SebastianBergmann\CodeUnit\ClassMethodUnit
@@ -39,7 +39,7 @@ final class FileUnitTest extends TestCase
         $this->assertFalse($unit->isFunction());
         $this->assertTrue($unit->isFile());
 
-        $this->assertSame('file:' .$file, $unit->name());
+        $this->assertSame('file:' . $file, $unit->name());
         $this->assertSame(realpath($file), $unit->sourceFileName());
         $this->assertSame(range(1, 53), $unit->sourceLines());
     }
