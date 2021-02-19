@@ -83,6 +83,8 @@ final class Mapper
             if ($this->isUserDefinedTrait($firstPart)) {
                 return CodeUnitCollection::fromList(CodeUnit::forTraitMethod($firstPart, $secondPart));
             }
+        } elseif (preg_match('/^file:(.*)$/', $unit, $matches)) {
+            return CodeUnitCollection::fromArray([CodeUnit::forAbsoluteFile($matches[1])]);
         } else {
             if ($this->isUserDefinedClass($unit)) {
                 $units = [CodeUnit::forClass($unit)];

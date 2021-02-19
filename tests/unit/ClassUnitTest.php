@@ -40,6 +40,7 @@ final class ClassUnitTest extends TestCase
         $this->assertFalse($unit->isTrait());
         $this->assertFalse($unit->isTraitMethod());
         $this->assertFalse($unit->isFunction());
+        $this->assertFalse($unit->isFile());
 
         $this->assertSame(FixtureClass::class, $unit->name());
         $this->assertSame(realpath(__DIR__ . '/../_fixture/FixtureClass.php'), $unit->sourceFileName());

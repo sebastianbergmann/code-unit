@@ -122,6 +122,16 @@ final class MapperTest extends TestCase
         $this->assertSame(FixtureTrait::class . '::method', $units->asArray()[0]->name());
     }
 
+    /**
+     * @testdox Can map 'file::[[absolute-path]]' string to code unit objects
+     */
+    public function testCanMapStringWithFileNameToCodeUnitObjects(): void
+    {
+        $units = (new Mapper)->stringToCodeUnits('file:' . realpath(__FILE__));
+
+        $this->assertSame('file:' . realpath(__FILE__), $units->asArray()[0]->name());
+    }
+
     public function testCannotMapInvalidStringToCodeUnitObjects(): void
     {
         $this->expectException(InvalidCodeUnitException::class);
