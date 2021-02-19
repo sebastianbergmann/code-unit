@@ -63,7 +63,7 @@ final class Mapper
      */
     public function stringToCodeUnits(string $unit): CodeUnitCollection
     {
-        if (preg_match('~^file:(/.*)$~', $unit, $matches)) {
+        if (preg_match('~^file:(/.*)~', $unit, $matches)) {
             return CodeUnitCollection::fromArray([CodeUnit::forAbsoluteFile($matches[1])]);
         }
 
