@@ -23,6 +23,8 @@ namespace
 
     class file
     {
-        public function test(): void {}
+        public function test(): void
+        {
+        }
     }
 }

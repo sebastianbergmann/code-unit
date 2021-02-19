@@ -65,7 +65,9 @@ final class Mapper
     {
         if (preg_match('~^file:(/.*)$~', $unit, $matches)) {
             return CodeUnitCollection::fromArray([CodeUnit::forAbsoluteFile($matches[1])]);
-        } elseif (strpos($unit, '::') !== false) {
+        }
+
+        if (strpos($unit, '::') !== false) {
             [$firstPart, $secondPart] = explode('::', $unit);
 
             if ($this->isUserDefinedFunction($secondPart)) {
