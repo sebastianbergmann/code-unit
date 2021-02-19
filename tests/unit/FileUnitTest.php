@@ -21,10 +21,22 @@ use PHPUnit\Framework\TestCase;
  * @uses \SebastianBergmann\CodeUnit\CodeUnitCollectionIterator
  * @uses \SebastianBergmann\CodeUnit\Mapper
  *
- * @testdox ClassMethodUnit
+ * @testdox FileUnit
  */
 final class FileUnitTest extends TestCase
 {
+    private array $temporaryFiles = [];
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        foreach ($this->temporaryFiles as $temporaryFile) {
+            unlink($temporaryFile);
+        }
+        $this->temporaryFiles = [];
+    }
+
     public function testCanBeCreatedFromAbsoluteFileName(): void
     {
         $file = realpath(__FILE__);
@@ -41,7 +53,7 @@ final class FileUnitTest extends TestCase
 
         $this->assertSame('file:' . $file, $unit->name());
         $this->assertSame(realpath($file), $unit->sourceFileName());
-        $this->assertSame(range(1, 65), $unit->sourceLines());
+        $this->assertSame(range(1, 79), $unit->sourceLines());
     }
 
     public function testCannotBeCreatedForNonExistentFile(): void
@@ -53,9 +65,11 @@ final class FileUnitTest extends TestCase
 
     public function testCannotBeCreatedForUnreadableFile(): void
     {
-        $tmpFile = tmpfile();
-        $fileName= stream_get_meta_data($tmpFile)['uri'];
+        $this->temporaryFiles[] = $fileName = tempnam(sys_get_temp_dir(), 'fileunit');
+
+        $this->assertTrue(touch($fileName));
         $this->assertTrue(chmod($fileName, 0000));
+        $this->assertTrue(file_exists($fileName));
         $this->assertFalse(is_readable($fileName));
 
         $this->expectException(InvalidCodeUnitException::class);
