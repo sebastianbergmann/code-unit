@@ -14,7 +14,7 @@ use function realpath;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \SebastianBergmann\CodeUnit\ClassMethodUnit
+ * @covers \SebastianBergmann\CodeUnit\FileUnit
  * @covers \SebastianBergmann\CodeUnit\CodeUnit
  *
  * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
