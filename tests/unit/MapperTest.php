@@ -11,7 +11,6 @@ namespace SebastianBergmann\CodeUnit;
 
 use function range;
 use function realpath;
-use file;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherChildClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherParentClass;
@@ -121,29 +120,6 @@ final class MapperTest extends TestCase
         $units = (new Mapper)->stringToCodeUnits(FixtureTrait::class . '::method');
 
         $this->assertSame(FixtureTrait::class . '::method', $units->asArray()[0]->name());
-    }
-
-    /**
-     * @testdox Can map 'file:[[absolute-path]]' string to code unit objects
-     */
-    public function testCanMapStringWithFileNameToCodeUnitObjects(): void
-    {
-        $units = (new Mapper)->stringToCodeUnits('file:' . realpath(__FILE__));
-
-        $this->assertSame('file:' . realpath(__FILE__), $units->asArray()[0]->name());
-    }
-
-    public function testCanMapClassThatLooksLikeFileAnnotation(): void
-    {
-        $units = (new Mapper)->stringToCodeUnits(file::class . '::test');
-        $this->assertInstanceOf(ClassMethodUnit::class, $units->asArray()[0]);
-    }
-
-    public function testCannotMapBadFileAnnotation(): void
-    {
-        $this->expectException(InvalidCodeUnitException::class);
-
-        (new Mapper)->stringToCodeUnits('not a file:' . realpath(__FILE__));
     }
 
     public function testCannotMapInvalidStringToCodeUnitObjects(): void
