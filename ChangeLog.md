@@ -2,7 +2,7 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## [2.0.0] - 2021-02-05
+## [2.0.0] - 2021-04-02
 
 ### Added
 
