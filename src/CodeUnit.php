@@ -283,7 +283,7 @@ abstract class CodeUnit
         if (!(file_exists($path) && is_readable($path))) {
             throw new InvalidCodeUnitException(
                 sprintf(
-                    'file "%s" does not exist or is not readable',
+                    'File "%s" does not exist or is not readable',
                     $path
                 )
             );
