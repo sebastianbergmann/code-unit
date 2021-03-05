@@ -51,7 +51,7 @@ final class FileUnitTest extends TestCase
         $this->assertFalse($unit->isFunction());
         $this->assertTrue($unit->isFile());
 
-        $this->assertSame('file:' . $file, $unit->name());
+        $this->assertSame($file, $unit->name());
         $this->assertSame(realpath($file), $unit->sourceFileName());
         $this->assertSame(range(1, 79), $unit->sourceLines());
     }

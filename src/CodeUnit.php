@@ -81,7 +81,7 @@ abstract class CodeUnit
         self::ensureFileExistsAndIsReadable($absoluteFileName);
 
         return new FileUnit(
-            'file:' . $absoluteFileName,
+            $absoluteFileName,
             $absoluteFileName,
             range(
                 1,
