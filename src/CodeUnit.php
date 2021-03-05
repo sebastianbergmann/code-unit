@@ -76,16 +76,16 @@ abstract class CodeUnit
     /**
      * @throws InvalidCodeUnitException
      */
-    public static function forAbsoluteFile(string $absoluteFileName): FileUnit
+    public static function forFileWithAbsolutePath(string $path): FileUnit
     {
-        self::ensureFileExistsAndIsReadable($absoluteFileName);
+        self::ensureFileExistsAndIsReadable($path);
 
         return new FileUnit(
-            $absoluteFileName,
-            $absoluteFileName,
+            $path,
+            $path,
             range(
                 1,
-                count(file($absoluteFileName))
+                count(file($path))
             )
         );
     }
@@ -278,13 +278,13 @@ abstract class CodeUnit
     /**
      * @throws InvalidCodeUnitException
      */
-    private static function ensureFileExistsAndIsReadable(string $absoluteFileName): void
+    private static function ensureFileExistsAndIsReadable(string $path): void
     {
-        if (!(file_exists($absoluteFileName) && is_readable($absoluteFileName))) {
+        if (!(file_exists($path) && is_readable($path))) {
             throw new InvalidCodeUnitException(
                 sprintf(
                     'file "%s" does not exist or is not readable',
-                    $absoluteFileName
+                    $path
                 )
             );
         }

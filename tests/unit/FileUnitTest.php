@@ -40,7 +40,7 @@ final class FileUnitTest extends TestCase
     public function testCanBeCreatedFromAbsoluteFileName(): void
     {
         $file = realpath(__FILE__);
-        $unit = CodeUnit::forAbsoluteFile($file);
+        $unit = CodeUnit::forFileWithAbsolutePath($file);
 
         $this->assertFalse($unit->isClass());
         $this->assertFalse($unit->isClassMethod());
@@ -60,7 +60,7 @@ final class FileUnitTest extends TestCase
     {
         $this->expectException(InvalidCodeUnitException::class);
 
-        CodeUnit::forAbsoluteFile(__DIR__ . '/FileUnitTest2.php');
+        CodeUnit::forFileWithAbsolutePath(__DIR__ . '/FileUnitTest2.php');
     }
 
     public function testCannotBeCreatedForUnreadableFile(): void
@@ -74,6 +74,6 @@ final class FileUnitTest extends TestCase
 
         $this->expectException(InvalidCodeUnitException::class);
 
-        CodeUnit::forAbsoluteFile($fileName);
+        CodeUnit::forFileWithAbsolutePath($fileName);
     }
 }
