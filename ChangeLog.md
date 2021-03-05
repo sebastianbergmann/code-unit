@@ -4,6 +4,10 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## [2.0.0] - 2021-02-05
 
+### Added
+
+* Added `SebastianBergmann\CodeUnit\FileUnit` value object that represents a sourcecode file 
+
 ### Removed
 
 * `SebastianBergmann\CodeUnit\Mapper::stringToCodeUnits()` no longer supports `ClassName<*>`
