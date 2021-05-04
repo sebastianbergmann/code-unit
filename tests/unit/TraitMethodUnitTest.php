@@ -17,8 +17,8 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
 use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
 
 /**
- * @covers \SebastianBergmann\CodeUnit\TraitMethodUnit
  * @covers \SebastianBergmann\CodeUnit\CodeUnit
+ * @covers \SebastianBergmann\CodeUnit\TraitMethodUnit
  *
  * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
  * @uses \SebastianBergmann\CodeUnit\CodeUnitCollectionIterator

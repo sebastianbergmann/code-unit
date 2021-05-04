@@ -14,8 +14,8 @@ use function realpath;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \SebastianBergmann\CodeUnit\FunctionUnit
  * @covers \SebastianBergmann\CodeUnit\CodeUnit
+ * @covers \SebastianBergmann\CodeUnit\FunctionUnit
  *
  * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
  * @uses \SebastianBergmann\CodeUnit\CodeUnitCollectionIterator
