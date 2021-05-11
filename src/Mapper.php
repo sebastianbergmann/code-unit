@@ -21,7 +21,7 @@ use function ksort;
 use function method_exists;
 use function sort;
 use function sprintf;
-use function strpos;
+use function str_contains;
 use function trait_exists;
 use ReflectionClass;
 use ReflectionFunction;
@@ -63,7 +63,7 @@ final class Mapper
      */
     public function stringToCodeUnits(string $unit): CodeUnitCollection
     {
-        if (strpos($unit, '::') !== false) {
+        if (str_contains($unit, '::')) {
             [$firstPart, $secondPart] = explode('::', $unit);
 
             if ($this->isUserDefinedFunction($secondPart)) {
