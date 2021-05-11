@@ -70,7 +70,7 @@ final class Mapper
                 return CodeUnitCollection::fromList(CodeUnit::forFunction($secondPart));
             }
 
-            if ($this->isUserDefinedClass($firstPart) && $this->isUserDefinedMethod($firstPart, $secondPart)) {
+            if ($this->isUserDefinedMethod($firstPart, $secondPart)) {
                 return CodeUnitCollection::fromList(CodeUnit::forClassMethod($firstPart, $secondPart));
             }
 
