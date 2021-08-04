@@ -39,7 +39,7 @@ final class FunctionUnitTest extends TestCase
 
         $this->assertSame('SebastianBergmann\CodeUnit\Fixture\f', $unit->name());
         $this->assertSame(realpath(__DIR__ . '/../_fixture/function.php'), $unit->sourceFileName());
-        $this->assertSame(range(12, 15), $unit->sourceLines());
+        $this->assertSame(range(11, 14), $unit->sourceLines());
     }
 
     public function testCannotBeCreatedForInternalFunction(): void
