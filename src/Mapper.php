@@ -95,7 +95,7 @@ final class Mapper
                     $units[] = CodeUnit::forTrait($trait->getName());
                 }
 
-                return CodeUnitCollection::fromArray($units);
+                return CodeUnitCollection::fromList(...$units);
             }
 
             if ($this->isUserDefinedInterface($unit)) {

@@ -41,16 +41,6 @@ final class CodeUnitCollectionTest extends TestCase
     }
 
     /**
-     * @testdox Can be created from array of CodeUnit objects
-     */
-    public function testCanBeCreatedFromArrayOfObjects(): void
-    {
-        $collection = CodeUnitCollection::fromArray([$this->interface, $this->class]);
-
-        $this->assertSame([$this->interface, $this->class], $collection->asArray());
-    }
-
-    /**
      * @testdox Can be created from list of CodeUnit objects
      */
     public function testCanBeCreatedFromListOfObjects(): void

@@ -2,7 +2,7 @@
 <files psalm-version="4.x-dev@">
   <file src="src/CodeUnitCollection.php">
     <MixedArgumentTypeCoercion occurrences="1">
-      <code>$items</code>
+      <code>$codeUnits</code>
     </MixedArgumentTypeCoercion>
   </file>
   <file src="src/Mapper.php">
