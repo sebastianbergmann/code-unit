@@ -55,8 +55,7 @@ final class MapperTest extends TestCase
         $this->assertSame(FixtureClass::class, $units->asArray()[0]->name());
     }
 
-    #[TestDox('Can map "ClassName" string to code unit objects')]
-    public function testMapClassesAndTheTraitsTheyUseToCodeUnitObjects(): void
+    public function testCanMapClassesAndTheTraitsTheyUseToCodeUnitObjects(): void
     {
         $units = (new Mapper)->stringToCodeUnits(FixtureClassWithTrait::class);
 
