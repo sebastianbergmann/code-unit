@@ -11,21 +11,20 @@ namespace SebastianBergmann\CodeUnit;
 
 use function realpath;
 use Iterator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
 use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
 
-/**
- * @covers \SebastianBergmann\CodeUnit\CodeUnit
- * @covers \SebastianBergmann\CodeUnit\InterfaceMethodUnit
- *
- * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
- * @uses \SebastianBergmann\CodeUnit\CodeUnitCollectionIterator
- * @uses \SebastianBergmann\CodeUnit\Mapper
- *
- * @testdox InterfaceMethodUnit
- */
+#[CoversClass(CodeUnit::class)]
+#[CoversClass(InterfaceMethodUnit::class)]
+#[UsesClass(CodeUnitCollection::class)]
+#[UsesClass(CodeUnitCollectionIterator::class)]
+#[UsesClass(Mapper::class)]
+#[TestDox('InterfaceMethodUnit')]
 final class InterfaceMethodUnitTest extends TestCase
 {
     public function testCanBeCreatedFromNameOfUserDefinedInterfaceAndMethodName(): void

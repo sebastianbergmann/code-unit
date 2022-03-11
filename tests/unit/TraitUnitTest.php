@@ -11,21 +11,20 @@ namespace SebastianBergmann\CodeUnit;
 
 use function range;
 use function realpath;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
 use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
 
-/**
- * @covers \SebastianBergmann\CodeUnit\CodeUnit
- * @covers \SebastianBergmann\CodeUnit\TraitUnit
- *
- * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
- * @uses \SebastianBergmann\CodeUnit\CodeUnitCollectionIterator
- * @uses \SebastianBergmann\CodeUnit\Mapper
- *
- * @testdox TraitUnit
- */
+#[CoversClass(CodeUnit::class)]
+#[CoversClass(TraitUnit::class)]
+#[UsesClass(CodeUnitCollection::class)]
+#[UsesClass(CodeUnitCollectionIterator::class)]
+#[UsesClass(Mapper::class)]
+#[TestDox('TraitUnit')]
 final class TraitUnitTest extends TestCase
 {
     public function testCanBeCreatedFromNameOfUserDefinedTrait(): void

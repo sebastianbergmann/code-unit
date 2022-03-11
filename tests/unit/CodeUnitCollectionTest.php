@@ -9,19 +9,18 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
 
-/**
- * @covers \SebastianBergmann\CodeUnit\CodeUnitCollection
- * @covers \SebastianBergmann\CodeUnit\CodeUnitCollectionIterator
- *
- * @uses \SebastianBergmann\CodeUnit\CodeUnit
- * @uses \SebastianBergmann\CodeUnit\Mapper
- *
- * @testdox CodeUnitCollection
- */
+#[CoversClass(CodeUnitCollection::class)]
+#[CoversClass(CodeUnitCollectionIterator::class)]
+#[UsesClass(CodeUnit::class)]
+#[UsesClass(Mapper::class)]
+#[TestDox('CodeUnitCollection')]
 final class CodeUnitCollectionTest extends TestCase
 {
     /**

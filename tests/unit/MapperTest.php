@@ -11,6 +11,9 @@ namespace SebastianBergmann\CodeUnit;
 
 use function range;
 use function realpath;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherChildClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherParentClass;
@@ -20,13 +23,10 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
 use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
 use SebastianBergmann\CodeUnit\Fixture\Getopt;
 
-/**
- * @covers \SebastianBergmann\CodeUnit\Mapper
- *
- * @uses \SebastianBergmann\CodeUnit\CodeUnit
- * @uses \SebastianBergmann\CodeUnit\CodeUnitCollection
- * @uses \SebastianBergmann\CodeUnit\CodeUnitCollectionIterator
- */
+#[CoversClass(Mapper::class)]
+#[UsesClass(CodeUnit::class)]
+#[UsesClass(CodeUnitCollection::class)]
+#[UsesClass(CodeUnitCollectionIterator::class)]
 final class MapperTest extends TestCase
 {
     /**
