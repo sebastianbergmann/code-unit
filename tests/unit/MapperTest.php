@@ -13,6 +13,7 @@ use function range;
 use function realpath;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\Ticket;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherChildClass;
@@ -29,9 +30,7 @@ use SebastianBergmann\CodeUnit\Fixture\Getopt;
 #[UsesClass(CodeUnitCollectionIterator::class)]
 final class MapperTest extends TestCase
 {
-    /**
-     * @testdox Can map 'function_name' string to code unit objects
-     */
+    #[TestDox('Can map "function_name" string to code unit objects')]
     public function testCanMapStringWithFunctionNameToCodeUnitObjects(): void
     {
         $units = (new Mapper)->stringToCodeUnits('SebastianBergmann\CodeUnit\Fixture\f');
@@ -39,9 +38,7 @@ final class MapperTest extends TestCase
         $this->assertSame('SebastianBergmann\CodeUnit\Fixture\f', $units->asArray()[0]->name());
     }
 
-    /**
-     * @testdox Can map '::function_name' string to code unit objects
-     */
+    #[TestDox('Can map "::function_name" string to code unit objects')]
     public function testCanMapStringWithFunctionNamePrefixedWithDoubleColonsToCodeUnitObjects(): void
     {
         $units = (new Mapper)->stringToCodeUnits('::f');
@@ -49,9 +46,7 @@ final class MapperTest extends TestCase
         $this->assertSame('f', $units->asArray()[0]->name());
     }
 
-    /**
-     * @testdox Can map 'ClassName' string to code unit objects
-     */
+    #[TestDox('Can map "ClassName" string to code unit objects')]
     public function testCanMapStringWithClassNameToCodeUnitObjects(): void
     {
         $units = (new Mapper)->stringToCodeUnits(FixtureClass::class);
@@ -60,9 +55,7 @@ final class MapperTest extends TestCase
         $this->assertSame(FixtureClass::class, $units->asArray()[0]->name());
     }
 
-    /**
-     * @testdox Can map 'ClassName' string to code unit objects
-     */
+    #[TestDox('Can map "ClassName" string to code unit objects')]
     public function testMapClassesAndTheTraitsTheyUseToCodeUnitObjects(): void
     {
         $units = (new Mapper)->stringToCodeUnits(FixtureClassWithTrait::class);
@@ -72,9 +65,7 @@ final class MapperTest extends TestCase
         $this->assertSame(FixtureTrait::class, $units->asArray()[1]->name());
     }
 
-    /**
-     * @testdox Can map 'ClassName::methodName' string to code unit objects
-     */
+    #[TestDox('Can map "ClassName::methodName" string to code unit objects')]
     public function testCanMapStringWithClassNameAndMethodNameToCodeUnitObjects(): void
     {
         $units = (new Mapper)->stringToCodeUnits(FixtureClass::class . '::publicMethod');
@@ -82,9 +73,7 @@ final class MapperTest extends TestCase
         $this->assertSame(FixtureClass::class . '::publicMethod', $units->asArray()[0]->name());
     }
 
-    /**
-     * @testdox Can map 'InterfaceName' string to code unit objects
-     */
+    #[TestDox('Can map "InterfaceName" string to code unit objects')]
     public function testCanMapStringWithInterfaceNameToCodeUnitObjects(): void
     {
         $units = (new Mapper)->stringToCodeUnits(FixtureInterface::class);
@@ -92,9 +81,7 @@ final class MapperTest extends TestCase
         $this->assertSame(FixtureInterface::class, $units->asArray()[0]->name());
     }
 
-    /**
-     * @testdox Can map 'InterfaceName::methodName' string to code unit objects
-     */
+    #[TestDox('Can map "InterfaceName::methodName" string to code unit objects')]
     public function testCanMapStringWithInterfaceNameAndMethodNameToCodeUnitObjects(): void
     {
         $units = (new Mapper)->stringToCodeUnits(FixtureInterface::class . '::method');
@@ -102,9 +89,7 @@ final class MapperTest extends TestCase
         $this->assertSame(FixtureInterface::class . '::method', $units->asArray()[0]->name());
     }
 
-    /**
-     * @testdox Can map 'TraitName' string to code unit objects
-     */
+    #[TestDox('Can map "TraitName" string to code unit objects')]
     public function testCanMapStringWithTraitNameToCodeUnitObjects(): void
     {
         $units = (new Mapper)->stringToCodeUnits(FixtureTrait::class);
@@ -112,9 +97,7 @@ final class MapperTest extends TestCase
         $this->assertSame(FixtureTrait::class, $units->asArray()[0]->name());
     }
 
-    /**
-     * @testdox Can map 'TraitName::methodName' string to code unit objects
-     */
+    #[TestDox('Can map "TraitName::methodName" string to code unit objects')]
     public function testCanMapStringWithTraitNameAndMethodNameToCodeUnitObjects(): void
     {
         $units = (new Mapper)->stringToCodeUnits(FixtureTrait::class . '::method');
@@ -189,9 +172,7 @@ final class MapperTest extends TestCase
         );
     }
 
-    /**
-     * @ticket https://github.com/sebastianbergmann/code-unit/issues/3
-     */
+    #[Ticket('https://github.com/sebastianbergmann/code-unit/issues/3')]
     public function testIssue3(): void
     {
         $units = (new Mapper)->stringToCodeUnits(Getopt::class . '::getopt');
