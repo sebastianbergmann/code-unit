@@ -15,6 +15,8 @@ use Countable;
 use IteratorAggregate;
 
 /**
+ * @template-implements IteratorAggregate<int, CodeUnit>
+ *
  * @psalm-immutable
  */
 final class CodeUnitCollection implements Countable, IteratorAggregate

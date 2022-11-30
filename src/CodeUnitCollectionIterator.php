@@ -11,6 +11,9 @@ namespace SebastianBergmann\CodeUnit;
 
 use Iterator;
 
+/**
+ * @template-implements Iterator<int, CodeUnit>
+ */
 final class CodeUnitCollectionIterator implements Iterator
 {
     /**
