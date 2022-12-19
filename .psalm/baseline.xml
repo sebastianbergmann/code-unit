@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="dev-master@">
+  <file src="src/CodeUnitCollection.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$codeUnits</code>
+    </ArgumentTypeCoercion>
+  </file>
   <file src="src/Mapper.php">
     <ArgumentTypeCoercion occurrences="9">
       <code>$firstPart</code>
