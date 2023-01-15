@@ -23,15 +23,8 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
 #[TestDox('CodeUnitCollection')]
 final class CodeUnitCollectionTest extends TestCase
 {
-    /**
-     * @var InterfaceUnit
-     */
-    private $interface;
-
-    /**
-     * @var ClassUnit
-     */
-    private $class;
+    private InterfaceUnit $interface;
+    private ClassUnit $class;
 
     protected function setUp(): void
     {
