@@ -9,6 +9,10 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
+use function count;
+use function file;
+use function file_exists;
+use function is_readable;
 use function range;
 use function sprintf;
 use ReflectionClass;
@@ -21,7 +25,6 @@ use ReflectionMethod;
 abstract class CodeUnit
 {
     private string $name;
-
     private string $sourceFileName;
 
     /**

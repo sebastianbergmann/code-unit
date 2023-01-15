@@ -9,8 +9,15 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
+use function chmod;
+use function file_exists;
+use function is_readable;
 use function range;
 use function realpath;
+use function sys_get_temp_dir;
+use function tempnam;
+use function touch;
+use function unlink;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\UsesClass;
@@ -52,7 +59,7 @@ final class FileUnitTest extends TestCase
 
         $this->assertSame($file, $unit->name());
         $this->assertSame(realpath($file), $unit->sourceFileName());
-        $this->assertSame(range(1, 78), $unit->sourceLines());
+        $this->assertSame(range(1, 85), $unit->sourceLines());
     }
 
     public function testCannotBeCreatedForNonExistentFile(): void
