@@ -32,9 +32,7 @@ final class CodeUnitCollectionTest extends TestCase
         $this->class     = CodeUnit::forClass(FixtureClass::class);
     }
 
-    /**
-     * @testdox Can be created from list of CodeUnit objects
-     */
+    #[TestDox('Can be created from list of CodeUnit objects')]
     public function testCanBeCreatedFromListOfObjects(): void
     {
         $collection = CodeUnitCollection::fromList($this->interface, $this->class);
