@@ -24,13 +24,13 @@ use ReflectionMethod;
  */
 abstract class CodeUnit
 {
-    private string $name;
-    private string $sourceFileName;
+    private readonly string $name;
+    private readonly string $sourceFileName;
 
     /**
      * @psalm-var list<int>
      */
-    private array $sourceLines;
+    private readonly array $sourceLines;
 
     /**
      * @psalm-param class-string $className

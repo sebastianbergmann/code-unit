@@ -24,7 +24,7 @@ final class CodeUnitCollection implements Countable, IteratorAggregate
     /**
      * @psalm-var list<CodeUnit>
      */
-    private array $codeUnits;
+    private readonly array $codeUnits;
 
     public static function fromList(CodeUnit ...$codeUnits): self
     {
