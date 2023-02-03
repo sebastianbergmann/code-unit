@@ -66,7 +66,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial release
 
-[2.0.0]: https://github.com/sebastianbergmann/code-unit/compare/1.0.8...main
+[2.0.0]: https://github.com/sebastianbergmann/code-unit/compare/1.0.8...2.0.0
 [1.0.8]: https://github.com/sebastianbergmann/code-unit/compare/1.0.7...1.0.8
 [1.0.7]: https://github.com/sebastianbergmann/code-unit/compare/1.0.6...1.0.7
 [1.0.6]: https://github.com/sebastianbergmann/code-unit/compare/1.0.5...1.0.6

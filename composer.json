@@ -15,7 +15,6 @@
         "issues": "https://github.com/sebastianbergmann/code-unit/issues"
     },
     "prefer-stable": true,
-    "minimum-stability": "dev",
     "require": {
         "php": ">=8.1"
     },
