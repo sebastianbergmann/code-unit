@@ -12,7 +12,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/sebastianbergmann/code-unit/issues"
+        "issues": "https://github.com/sebastianbergmann/code-unit/issues",
+        "security": "https://github.com/sebastianbergmann/code-unit/security/policy"
     },
     "prefer-stable": true,
     "require": {
