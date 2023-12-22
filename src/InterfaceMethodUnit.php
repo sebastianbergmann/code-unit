@@ -15,7 +15,7 @@ namespace SebastianBergmann\CodeUnit;
 final class InterfaceMethodUnit extends CodeUnit
 {
     /**
-     * @psalm-assert-if-true InterfaceMethod $this
+     * @psalm-assert-if-true InterfaceMethodUnit $this
      */
     public function isInterfaceMethod(): bool
     {

@@ -238,41 +238,65 @@ abstract class CodeUnit
         return $this->sourceLines;
     }
 
+    /**
+     * @psalm-assert-if-true ClassUnit $this
+     */
     public function isClass(): bool
     {
         return false;
     }
 
+    /**
+     * @psalm-assert-if-true ClassMethodUnit $this
+     */
     public function isClassMethod(): bool
     {
         return false;
     }
 
+    /**
+     * @psalm-assert-if-true InterfaceUnit $this
+     */
     public function isInterface(): bool
     {
         return false;
     }
 
+    /**
+     * @psalm-assert-if-true InterfaceMethodUnit $this
+     */
     public function isInterfaceMethod(): bool
     {
         return false;
     }
 
+    /**
+     * @psalm-assert-if-true TraitUnit $this
+     */
     public function isTrait(): bool
     {
         return false;
     }
 
+    /**
+     * @psalm-assert-if-true TraitMethodUnit $this
+     */
     public function isTraitMethod(): bool
     {
         return false;
     }
 
+    /**
+     * @psalm-assert-if-true FunctionUnit $this
+     */
     public function isFunction(): bool
     {
         return false;
     }
 
+    /**
+     * @psalm-assert-if-true FileUnit $this
+     */
     public function isFile(): bool
     {
         return false;
