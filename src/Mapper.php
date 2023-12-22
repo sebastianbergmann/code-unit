@@ -139,121 +139,52 @@ final class Mapper
         // @codeCoverageIgnoreEnd
     }
 
-    /**
-     * @throws ReflectionException
-     */
     private function isUserDefinedFunction(string $functionName): bool
     {
         if (!function_exists($functionName)) {
             return false;
         }
 
-        try {
-            return (new ReflectionFunction($functionName))->isUserDefined();
-            // @codeCoverageIgnoreStart
-        } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e
-            );
-        }
-        // @codeCoverageIgnoreEnd
+        return (new ReflectionFunction($functionName))->isUserDefined();
     }
 
-    /**
-     * @throws ReflectionException
-     */
     private function isUserDefinedClass(string $className): bool
     {
         if (!class_exists($className)) {
             return false;
         }
 
-        try {
-            return (new ReflectionClass($className))->isUserDefined();
-            // @codeCoverageIgnoreStart
-        } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e
-            );
-        }
-        // @codeCoverageIgnoreEnd
+        return (new ReflectionClass($className))->isUserDefined();
     }
 
-    /**
-     * @throws ReflectionException
-     */
     private function isUserDefinedInterface(string $interfaceName): bool
     {
         if (!interface_exists($interfaceName)) {
             return false;
         }
 
-        try {
-            return (new ReflectionClass($interfaceName))->isUserDefined();
-            // @codeCoverageIgnoreStart
-        } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e
-            );
-        }
-        // @codeCoverageIgnoreEnd
+        return (new ReflectionClass($interfaceName))->isUserDefined();
     }
 
-    /**
-     * @throws ReflectionException
-     */
     private function isUserDefinedTrait(string $traitName): bool
     {
         if (!trait_exists($traitName)) {
             return false;
         }
 
-        try {
-            return (new ReflectionClass($traitName))->isUserDefined();
-            // @codeCoverageIgnoreStart
-        } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e
-            );
-        }
-        // @codeCoverageIgnoreEnd
+        return (new ReflectionClass($traitName))->isUserDefined();
     }
 
-    /**
-     * @throws ReflectionException
-     */
     private function isUserDefinedMethod(string $className, string $methodName): bool
     {
         if (!class_exists($className)) {
-            // @codeCoverageIgnoreStart
             return false;
-            // @codeCoverageIgnoreEnd
         }
 
         if (!method_exists($className, $methodName)) {
-            // @codeCoverageIgnoreStart
             return false;
-            // @codeCoverageIgnoreEnd
         }
 
-        try {
-            return (new ReflectionMethod($className, $methodName))->isUserDefined();
-            // @codeCoverageIgnoreStart
-        } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e
-            );
-        }
-        // @codeCoverageIgnoreEnd
+        return (new ReflectionMethod($className, $methodName))->isUserDefined();
     }
 }
