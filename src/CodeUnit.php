@@ -24,7 +24,14 @@ use ReflectionMethod;
  */
 abstract class CodeUnit
 {
+    /**
+     * @psalm-var non-empty-string
+     */
     private readonly string $name;
+
+    /**
+     * @psalm-var non-empty-string
+     */
     private readonly string $sourceFileName;
 
     /**
@@ -77,6 +84,8 @@ abstract class CodeUnit
     }
 
     /**
+     * @psalm-param non-empty-string $path
+     *
      * @throws InvalidCodeUnitException
      */
     public static function forFileWithAbsolutePath(string $path): FileUnit
@@ -211,6 +220,8 @@ abstract class CodeUnit
     }
 
     /**
+     * @psalm-param non-empty-string $name
+     * @psalm-param non-empty-string $sourceFileName
      * @psalm-param list<int> $sourceLines
      */
     private function __construct(string $name, string $sourceFileName, array $sourceLines)
@@ -220,11 +231,17 @@ abstract class CodeUnit
         $this->sourceLines    = $sourceLines;
     }
 
+    /**
+     * @psalm-return non-empty-string
+     */
     public function name(): string
     {
         return $this->name;
     }
 
+    /**
+     * @psalm-return non-empty-string
+     */
     public function sourceFileName(): string
     {
         return $this->sourceFileName;
@@ -303,6 +320,8 @@ abstract class CodeUnit
     }
 
     /**
+     * @psalm-param non-empty-string $path
+     *
      * @throws InvalidCodeUnitException
      */
     private static function ensureFileExistsAndIsReadable(string $path): void
