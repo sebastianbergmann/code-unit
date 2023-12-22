@@ -22,22 +22,22 @@ use ReflectionMethod;
 /**
  * @psalm-immutable
  */
-abstract class CodeUnit
+abstract readonly class CodeUnit
 {
     /**
      * @psalm-var non-empty-string
      */
-    private readonly string $name;
+    private string $name;
 
     /**
      * @psalm-var non-empty-string
      */
-    private readonly string $sourceFileName;
+    private string $sourceFileName;
 
     /**
      * @psalm-var list<int>
      */
-    private readonly array $sourceLines;
+    private array $sourceLines;
 
     /**
      * @psalm-param class-string $className
