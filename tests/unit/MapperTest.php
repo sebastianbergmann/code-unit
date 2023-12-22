@@ -72,6 +72,14 @@ final class MapperTest extends TestCase
         $this->assertSame(FixtureClass::class . '::publicMethod', $units->asArray()[0]->name());
     }
 
+    #[TestDox('Cannot map "ClassName::methodName" string to code unit objects when method does not exist')]
+    public function testCannotMapStringWithClassNameAndMethodNameToCodeUnitObjectsWhenMethodDoesNotExist(): void
+    {
+        $this->expectException(InvalidCodeUnitException::class);
+
+        (new Mapper)->stringToCodeUnits(FixtureClass::class . '::doesNotExist');
+    }
+
     #[TestDox('Can map "InterfaceName" string to code unit objects')]
     public function testCanMapStringWithInterfaceNameToCodeUnitObjects(): void
     {
