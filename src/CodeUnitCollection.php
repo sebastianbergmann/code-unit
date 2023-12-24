@@ -67,8 +67,8 @@ final readonly class CodeUnitCollection implements Countable, IteratorAggregate
         return new self(
             array_merge(
                 $this->asArray(),
-                $other->asArray()
-            )
+                $other->asArray(),
+            ),
         );
     }
 }
