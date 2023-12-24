@@ -74,7 +74,7 @@ final class FileUnitTest extends TestCase
         $this->temporaryFiles[] = $fileName = tempnam(sys_get_temp_dir(), 'fileunit');
 
         $this->assertTrue(touch($fileName));
-        $this->assertTrue(chmod($fileName, 0000));
+        $this->assertTrue(chmod($fileName, 0o000));
         $this->assertTrue(file_exists($fileName));
         $this->assertFalse(is_readable($fileName));
 

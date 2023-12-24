@@ -73,8 +73,8 @@ final class CodeUnitCollectionTest extends TestCase
                 $this->interface,
             ],
             CodeUnitCollection::fromList($this->class)->mergeWith(
-                CodeUnitCollection::fromList($this->interface)
-            )->asArray()
+                CodeUnitCollection::fromList($this->interface),
+            )->asArray(),
         );
     }
 }

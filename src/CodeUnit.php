@@ -56,8 +56,8 @@ abstract class CodeUnit
             $reflector->getFileName(),
             range(
                 $reflector->getStartLine(),
-                $reflector->getEndLine()
-            )
+                $reflector->getEndLine(),
+            ),
         );
     }
 
@@ -78,8 +78,8 @@ abstract class CodeUnit
             $reflector->getFileName(),
             range(
                 $reflector->getStartLine(),
-                $reflector->getEndLine()
-            )
+                $reflector->getEndLine(),
+            ),
         );
     }
 
@@ -97,8 +97,8 @@ abstract class CodeUnit
             $path,
             range(
                 1,
-                count(file($path))
-            )
+                count(file($path)),
+            ),
         );
     }
 
@@ -119,8 +119,8 @@ abstract class CodeUnit
             $reflector->getFileName(),
             range(
                 $reflector->getStartLine(),
-                $reflector->getEndLine()
-            )
+                $reflector->getEndLine(),
+            ),
         );
     }
 
@@ -141,8 +141,8 @@ abstract class CodeUnit
             $reflector->getFileName(),
             range(
                 $reflector->getStartLine(),
-                $reflector->getEndLine()
-            )
+                $reflector->getEndLine(),
+            ),
         );
     }
 
@@ -163,8 +163,8 @@ abstract class CodeUnit
             $reflector->getFileName(),
             range(
                 $reflector->getStartLine(),
-                $reflector->getEndLine()
-            )
+                $reflector->getEndLine(),
+            ),
         );
     }
 
@@ -185,8 +185,8 @@ abstract class CodeUnit
             $reflector->getFileName(),
             range(
                 $reflector->getStartLine(),
-                $reflector->getEndLine()
-            )
+                $reflector->getEndLine(),
+            ),
         );
     }
 
@@ -204,8 +204,8 @@ abstract class CodeUnit
             throw new InvalidCodeUnitException(
                 sprintf(
                     '"%s" is not a user-defined function',
-                    $functionName
-                )
+                    $functionName,
+                ),
             );
         }
 
@@ -214,8 +214,8 @@ abstract class CodeUnit
             $reflector->getFileName(),
             range(
                 $reflector->getStartLine(),
-                $reflector->getEndLine()
-            )
+                $reflector->getEndLine(),
+            ),
         );
     }
 
@@ -330,8 +330,8 @@ abstract class CodeUnit
             throw new InvalidCodeUnitException(
                 sprintf(
                     'File "%s" does not exist or is not readable',
-                    $path
-                )
+                    $path,
+                ),
             );
         }
     }
@@ -350,8 +350,8 @@ abstract class CodeUnit
                 throw new InvalidCodeUnitException(
                     sprintf(
                         '"%s" is an interface and not a class',
-                        $className
-                    )
+                        $className,
+                    ),
                 );
             }
 
@@ -359,8 +359,8 @@ abstract class CodeUnit
                 throw new InvalidCodeUnitException(
                     sprintf(
                         '"%s" is a trait and not a class',
-                        $className
-                    )
+                        $className,
+                    ),
                 );
             }
 
@@ -368,8 +368,8 @@ abstract class CodeUnit
                 throw new InvalidCodeUnitException(
                     sprintf(
                         '"%s" is not a user-defined class',
-                        $className
-                    )
+                        $className,
+                    ),
                 );
             }
             // @codeCoverageIgnoreStart
@@ -377,7 +377,7 @@ abstract class CodeUnit
             throw new ReflectionException(
                 $e->getMessage(),
                 $e->getCode(),
-                $e
+                $e,
             );
         }
         // @codeCoverageIgnoreEnd
@@ -397,8 +397,8 @@ abstract class CodeUnit
                 throw new InvalidCodeUnitException(
                     sprintf(
                         '"%s" is not an interface',
-                        $interfaceName
-                    )
+                        $interfaceName,
+                    ),
                 );
             }
 
@@ -406,8 +406,8 @@ abstract class CodeUnit
                 throw new InvalidCodeUnitException(
                     sprintf(
                         '"%s" is not a user-defined interface',
-                        $interfaceName
-                    )
+                        $interfaceName,
+                    ),
                 );
             }
             // @codeCoverageIgnoreStart
@@ -415,7 +415,7 @@ abstract class CodeUnit
             throw new ReflectionException(
                 $e->getMessage(),
                 $e->getCode(),
-                $e
+                $e,
             );
         }
         // @codeCoverageIgnoreEnd
@@ -435,8 +435,8 @@ abstract class CodeUnit
                 throw new InvalidCodeUnitException(
                     sprintf(
                         '"%s" is not a trait',
-                        $traitName
-                    )
+                        $traitName,
+                    ),
                 );
             }
 
@@ -445,15 +445,15 @@ abstract class CodeUnit
                 throw new InvalidCodeUnitException(
                     sprintf(
                         '"%s" is not a user-defined trait',
-                        $traitName
-                    )
+                        $traitName,
+                    ),
                 );
             }
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
                 $e->getMessage(),
                 $e->getCode(),
-                $e
+                $e,
             );
         }
         // @codeCoverageIgnoreEnd
@@ -473,7 +473,7 @@ abstract class CodeUnit
             throw new ReflectionException(
                 $e->getMessage(),
                 $e->getCode(),
-                $e
+                $e,
             );
         }
         // @codeCoverageIgnoreEnd
@@ -493,7 +493,7 @@ abstract class CodeUnit
             throw new ReflectionException(
                 $e->getMessage(),
                 $e->getCode(),
-                $e
+                $e,
             );
         }
         // @codeCoverageIgnoreEnd
@@ -513,7 +513,7 @@ abstract class CodeUnit
             throw new ReflectionException(
                 $e->getMessage(),
                 $e->getCode(),
-                $e
+                $e,
             );
         }
         // @codeCoverageIgnoreEnd

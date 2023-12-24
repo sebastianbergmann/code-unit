@@ -141,7 +141,7 @@ final class MapperTest extends TestCase
                     22,
                 ],
             ],
-            (new Mapper)->codeUnitsToSourceLines($codeUnits)
+            (new Mapper)->codeUnitsToSourceLines($codeUnits),
         );
     }
 
@@ -150,7 +150,7 @@ final class MapperTest extends TestCase
         $codeUnits = CodeUnitCollection::fromList(
             CodeUnit::forInterface(FixtureInterface::class),
             CodeUnit::forClass(FixtureClass::class),
-            CodeUnit::forClass(FixtureClass::class)
+            CodeUnit::forClass(FixtureClass::class),
         );
 
         $this->assertSame(
@@ -158,7 +158,7 @@ final class MapperTest extends TestCase
                 realpath(__DIR__ . '/../_fixture/FixtureClass.php')     => range(12, 28),
                 realpath(__DIR__ . '/../_fixture/FixtureInterface.php') => range(12, 15),
             ],
-            (new Mapper)->codeUnitsToSourceLines($codeUnits)
+            (new Mapper)->codeUnitsToSourceLines($codeUnits),
         );
     }
 
@@ -175,7 +175,7 @@ final class MapperTest extends TestCase
             [
                 realpath(__DIR__ . '/../_fixture/FixtureClass.php') => range(12, 28),
             ],
-            (new Mapper)->codeUnitsToSourceLines($codeUnits)
+            (new Mapper)->codeUnitsToSourceLines($codeUnits),
         );
     }
 

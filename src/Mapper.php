@@ -114,8 +114,8 @@ final class Mapper
         throw new InvalidCodeUnitException(
             sprintf(
                 '"%s" is not a valid code unit',
-                $unit
-            )
+                $unit,
+            ),
         );
     }
 
@@ -133,7 +133,7 @@ final class Mapper
             throw new ReflectionException(
                 $e->getMessage(),
                 $e->getCode(),
-                $e
+                $e,
             );
         }
         // @codeCoverageIgnoreEnd
