@@ -1,0 +1,115 @@
+# https://docs.github.com/en/actions
+
+on:
+  - "pull_request"
+  - "push"
+
+name: "CI"
+
+env:
+  COMPOSER_ROOT_VERSION: "3.0-dev"
+
+permissions:
+  contents: read
+
+jobs:
+  coding-guidelines:
+    name: Coding Guidelines
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          coverage: none
+
+      - name: Run PHP-CS-Fixer
+        run: php ./tools/php-cs-fixer fix --dry-run --show-progress=dots --using-cache=no --verbose
+
+  type-checker:
+    name: Type Checker
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          coverage: none
+
+      - name: Install dependencies with Composer
+        run: php ./tools/composer update --no-interaction --no-ansi --no-progress
+
+      - name: Run Psalm
+        run: php ./tools/psalm --config=.psalm/config.xml --no-progress --shepherd --show-info=false --stats
+
+  tests:
+    name: Tests
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "8.2"
+          - "8.3"
+          - "8.4"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: pcov
+
+      - name: Install dependencies with Composer
+        run: php ./tools/composer update --no-ansi --no-interaction --no-progress
+
+      - name: Run tests with PHPUnit
+        run: php vendor/bin/phpunit --coverage-clover=coverage.xml
+
+      - name: Send code coverage report to Codecov.io
+        env:
+          CODECOV_TOKEN: "${{ secrets.CODECOV_TOKEN }}"
+        run: "bash <(curl -s https://codecov.io/bash) || true"
+
+  mutation-tests:
+    name: Mutation Tests
+
+    needs:
+      - tests
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          coverage: pcov
+
+      - name: Install dependencies with Composer
+        run: php ./tools/composer update --no-ansi --no-interaction --no-progress
+
+      - name: Perform mutation testing with Infection
+        run: php ./tools/infection --threads=max --ignore-msi-with-no-mutations --only-covered
