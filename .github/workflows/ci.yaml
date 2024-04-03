@@ -29,7 +29,7 @@ jobs:
           coverage: none
 
       - name: Run PHP-CS-Fixer
-        run: ./tools/php-cs-fixer fix --dry-run --show-progress=dots --using-cache=no --verbose
+        run: php ./tools/php-cs-fixer fix --dry-run --show-progress=dots --using-cache=no --verbose
 
   type-checker:
     name: Type Checker
@@ -47,10 +47,10 @@ jobs:
           coverage: none
 
       - name: Install dependencies with Composer
-        run: ./tools/composer update --no-interaction --no-ansi --no-progress
+        run: php ./tools/composer update --no-interaction --no-ansi --no-progress
 
       - name: Run Psalm
-        run: ./tools/psalm --config=.psalm/config.xml --no-progress --shepherd --show-info=false --stats
+        run: php ./tools/psalm --config=.psalm/config.xml --no-progress --shepherd --show-info=false --stats
 
   tests:
     name: Tests
@@ -67,22 +67,22 @@ jobs:
           - "8.4"
 
     steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v4"
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: "Install PHP with extensions"
-        uses: "shivammathur/setup-php@v2"
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: "${{ matrix.php-version }}"
-          coverage: "pcov"
+          php-version: ${{ matrix.php-version }}
+          coverage: pcov
 
-      - name: "Install dependencies with Composer"
-        run: "./tools/composer update --no-ansi --no-interaction --no-progress"
+      - name: Install dependencies with Composer
+        run: php ./tools/composer update --no-ansi --no-interaction --no-progress
 
-      - name: "Run tests with PHPUnit"
-        run: "vendor/bin/phpunit --coverage-clover=coverage.xml"
+      - name: Run tests with PHPUnit
+        run: php vendor/bin/phpunit --coverage-clover=coverage.xml
 
-      - name: "Send code coverage report to Codecov.io"
+      - name: Send code coverage report to Codecov.io
         env:
           CODECOV_TOKEN: "${{ secrets.CODECOV_TOKEN }}"
         run: "bash <(curl -s https://codecov.io/bash) || true"
@@ -93,17 +93,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v4"
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: "Install PHP with extensions"
-        uses: "shivammathur/setup-php@v2"
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.3"
-          coverage: "pcov"
+          php-version: 8.3
+          coverage: pcov
 
-      - name: "Install dependencies with Composer"
-        run: "./tools/composer update --no-ansi --no-interaction --no-progress"
+      - name: Install dependencies with Composer
+        run: php ./tools/composer update --no-ansi --no-interaction --no-progress
 
-      - name: "Perform mutation testing with Infection"
-        run: "./tools/infection --threads=max --ignore-msi-with-no-mutations --only-covered"
+      - name: Perform mutation testing with Infection
+        run: php ./tools/infection --threads=max --ignore-msi-with-no-mutations --only-covered
