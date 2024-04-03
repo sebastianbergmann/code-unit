@@ -87,3 +87,23 @@ jobs:
           CODECOV_TOKEN: "${{ secrets.CODECOV_TOKEN }}"
         run: "bash <(curl -s https://codecov.io/bash) || true"
 
+  mutation-tests:
+    name: Mutation Tests
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+
+      - name: "Install PHP with extensions"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "8.3"
+          coverage: "pcov"
+
+      - name: "Install dependencies with Composer"
+        run: "./tools/composer update --no-ansi --no-interaction --no-progress"
+
+      - name: "Perform mutation testing with Infection"
+        run: "./tools/infection --threads=max --ignore-msi-with-no-mutations --only-covered"
