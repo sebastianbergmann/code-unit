@@ -17,22 +17,23 @@ use IteratorAggregate;
 /**
  * @template-implements IteratorAggregate<int, CodeUnit>
  *
- * @psalm-immutable
+ * @immutable
  */
 final readonly class CodeUnitCollection implements Countable, IteratorAggregate
 {
     /**
-     * @psalm-var list<CodeUnit>
+     * @var list<CodeUnit>
      */
     private array $codeUnits;
 
     public static function fromList(CodeUnit ...$codeUnits): self
     {
+        // @phpstan-ignore argument.type
         return new self($codeUnits);
     }
 
     /**
-     * @psalm-param list<CodeUnit> $codeUnits
+     * @param list<CodeUnit> $codeUnits
      */
     private function __construct(array $codeUnits)
     {
@@ -40,7 +41,7 @@ final readonly class CodeUnitCollection implements Countable, IteratorAggregate
     }
 
     /**
-     * @psalm-return list<CodeUnit>
+     * @return list<CodeUnit>
      */
     public function asArray(): array
     {

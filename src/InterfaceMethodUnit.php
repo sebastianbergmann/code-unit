@@ -10,13 +10,10 @@
 namespace SebastianBergmann\CodeUnit;
 
 /**
- * @psalm-immutable
+ * @immutable
  */
 final readonly class InterfaceMethodUnit extends CodeUnit
 {
-    /**
-     * @psalm-assert-if-true InterfaceMethodUnit $this
-     */
     public function isInterfaceMethod(): bool
     {
         return true;
