@@ -32,8 +32,8 @@ jobs:
       - name: Run PHP-CS-Fixer
         run: php ./tools/php-cs-fixer fix --dry-run --show-progress=dots --using-cache=no --verbose
 
-  type-checker:
-    name: Type Checker
+  static-analysis:
+    name: Static Analysis
 
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -51,8 +51,8 @@ jobs:
       - name: Install dependencies with Composer
         run: php ./tools/composer update --no-interaction --no-ansi --no-progress
 
-      - name: Run Psalm
-        run: php ./tools/psalm --config=.psalm/config.xml --no-progress --shepherd --show-info=false --stats
+      - name: Run PHPStan
+        run: php ./tools/phpstan analyse --no-progress --error-format=github
 
   tests:
     name: Tests
