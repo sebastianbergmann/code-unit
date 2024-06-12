@@ -9,6 +9,7 @@
  */
 namespace SebastianBergmann\CodeUnit;
 
+use function assert;
 use function chmod;
 use function file_exists;
 use function is_readable;
@@ -31,21 +32,21 @@ use PHPUnit\Framework\TestCase;
 #[TestDox('FileUnit')]
 final class FileUnitTest extends TestCase
 {
-    private array $temporaryFiles = [];
+    private false|string $temporaryFile = false;
 
     protected function tearDown(): void
     {
-        parent::tearDown();
-
-        foreach ($this->temporaryFiles as $temporaryFile) {
-            unlink($temporaryFile);
+        if ($this->temporaryFile !== false) {
+            @unlink($this->temporaryFile);
         }
-        $this->temporaryFiles = [];
     }
 
     public function testCanBeCreatedFromAbsoluteFileName(): void
     {
         $file = realpath(__FILE__);
+
+        assert($file !== false);
+
         $unit = CodeUnit::forFileWithAbsolutePath($file);
 
         $this->assertFalse($unit->isClass());
@@ -58,8 +59,8 @@ final class FileUnitTest extends TestCase
         $this->assertTrue($unit->isFile());
 
         $this->assertSame($file, $unit->name());
-        $this->assertSame(realpath($file), $unit->sourceFileName());
-        $this->assertSame(range(1, 85), $unit->sourceLines());
+        $this->assertSame($file, $unit->sourceFileName());
+        $this->assertSame(range(1, 88), $unit->sourceLines());
     }
 
     public function testCannotBeCreatedForNonExistentFile(): void
@@ -71,15 +72,17 @@ final class FileUnitTest extends TestCase
 
     public function testCannotBeCreatedForUnreadableFile(): void
     {
-        $this->temporaryFiles[] = $fileName = tempnam(sys_get_temp_dir(), 'fileunit');
+        $file = $this->temporaryFile = tempnam(sys_get_temp_dir(), 'fileunit');
 
-        $this->assertTrue(touch($fileName));
-        $this->assertTrue(chmod($fileName, 0o000));
-        $this->assertTrue(file_exists($fileName));
-        $this->assertFalse(is_readable($fileName));
+        assert($file !== false && $file !== '');
+
+        $this->assertTrue(touch($file));
+        $this->assertTrue(chmod($file, 0o000));
+        $this->assertTrue(file_exists($file));
+        $this->assertFalse(is_readable($file));
 
         $this->expectException(InvalidCodeUnitException::class);
 
-        CodeUnit::forFileWithAbsolutePath($fileName);
+        CodeUnit::forFileWithAbsolutePath($file);
     }
 }
