@@ -2,6 +2,6 @@
 <phive xmlns="https://phar.io/phive">
   <phar name="php-cs-fixer" version="^3.0" installed="3.64.0" location="./tools/php-cs-fixer" copy="true"/>
   <phar name="infection" version="^0.29" installed="0.29.6" location="./tools/infection" copy="true"/>
-  <phar name="composer" version="2.7.5" installed="2.7.5" location="./tools/composer" copy="true"/>
+  <phar name="composer" version="2.7.4" installed="2.7.4" location="./tools/composer" copy="true"/>
   <phar name="phpstan" version="^1.11.1" installed="1.12.2" location="./tools/phpstan" copy="true"/>
 </phive>
