@@ -11,7 +11,7 @@ namespace SebastianBergmann\CodeUnit\Fixture;
 
 final class Getopt
 {
-    public static function getopt(array $args, string $short_options, array $long_options = null): array
+    public static function getopt(array $args, string $short_options, ?array $long_options = null): array
     {
         return [];
     }
