@@ -16,6 +16,7 @@ use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\Ticket;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\CodeUnit\Fixture\ClassUsingTraitUsingTrait;
 use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherChildClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureAnotherParentClass;
 use SebastianBergmann\CodeUnit\Fixture\FixtureClass;
@@ -23,6 +24,8 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureClassWithTrait;
 use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
 use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
 use SebastianBergmann\CodeUnit\Fixture\Getopt;
+use SebastianBergmann\CodeUnit\Fixture\TraitOne;
+use SebastianBergmann\CodeUnit\Fixture\TraitTwo;
 
 #[CoversClass(Mapper::class)]
 #[UsesClass(CodeUnit::class)]
@@ -185,5 +188,16 @@ final class MapperTest extends TestCase
         $units = (new Mapper)->stringToCodeUnits(Getopt::class . '::getopt');
 
         $this->assertSame(Getopt::class . '::getopt', $units->asArray()[0]->name());
+    }
+
+    #[Ticket('https://github.com/sebastianbergmann/code-unit/issues/8')]
+    public function testIssue8(): void
+    {
+        $units = (new Mapper)->stringToCodeUnits(ClassUsingTraitUsingTrait::class);
+
+        $this->assertCount(3, $units);
+        $this->assertSame(ClassUsingTraitUsingTrait::class, $units->asArray()[0]->name());
+        $this->assertSame(TraitTwo::class, $units->asArray()[1]->name());
+        $this->assertSame(TraitOne::class, $units->asArray()[2]->name());
     }
 }
