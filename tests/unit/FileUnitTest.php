@@ -74,7 +74,7 @@ final class FileUnitTest extends TestCase
     {
         $file = $this->temporaryFile = tempnam(sys_get_temp_dir(), 'fileunit');
 
-        assert($file !== false && $file !== '');
+        assert($file !== false);
 
         $this->assertTrue(touch($file));
         $this->assertTrue(chmod($file, 0o000));

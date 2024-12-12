@@ -2,3 +2,9 @@ parameters:
     level: 10
     paths:
         - src
+        - tests/unit
+
+    ignoreErrors:
+        # Ignore errors caused by defensive programming
+        - '#Call to method .*::is.* will always evaluate to true.#'
+        - '#Call to method .*::is.* will always evaluate to false.#'
