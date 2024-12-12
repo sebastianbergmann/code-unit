@@ -20,6 +20,7 @@ use function tempnam;
 use function touch;
 use function unlink;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -30,6 +31,7 @@ use PHPUnit\Framework\TestCase;
 #[UsesClass(CodeUnitCollectionIterator::class)]
 #[UsesClass(Mapper::class)]
 #[TestDox('FileUnit')]
+#[Small]
 final class FileUnitTest extends TestCase
 {
     private false|string $temporaryFile = false;
@@ -60,7 +62,7 @@ final class FileUnitTest extends TestCase
 
         $this->assertSame($file, $unit->name());
         $this->assertSame($file, $unit->sourceFileName());
-        $this->assertSame(range(1, 88), $unit->sourceLines());
+        $this->assertSame(range(1, 90), $unit->sourceLines());
     }
 
     public function testCannotBeCreatedForNonExistentFile(): void

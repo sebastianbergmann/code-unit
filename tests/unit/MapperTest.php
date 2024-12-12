@@ -12,6 +12,7 @@ namespace SebastianBergmann\CodeUnit;
 use function range;
 use function realpath;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\Ticket;
 use PHPUnit\Framework\Attributes\UsesClass;
@@ -31,6 +32,7 @@ use SebastianBergmann\CodeUnit\Fixture\TraitTwo;
 #[UsesClass(CodeUnit::class)]
 #[UsesClass(CodeUnitCollection::class)]
 #[UsesClass(CodeUnitCollectionIterator::class)]
+#[Small]
 final class MapperTest extends TestCase
 {
     #[TestDox('Can map "function_name" string to code unit objects')]

@@ -12,6 +12,7 @@ namespace SebastianBergmann\CodeUnit;
 use function realpath;
 use Iterator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -25,6 +26,7 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
 #[UsesClass(CodeUnitCollectionIterator::class)]
 #[UsesClass(Mapper::class)]
 #[TestDox('InterfaceMethodUnit')]
+#[Small]
 final class InterfaceMethodUnitTest extends TestCase
 {
     public function testCanBeCreatedFromNameOfUserDefinedInterfaceAndMethodName(): void

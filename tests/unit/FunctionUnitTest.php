@@ -12,6 +12,7 @@ namespace SebastianBergmann\CodeUnit;
 use function range;
 use function realpath;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -22,6 +23,7 @@ use PHPUnit\Framework\TestCase;
 #[UsesClass(CodeUnitCollectionIterator::class)]
 #[UsesClass(Mapper::class)]
 #[TestDox('FunctionUnit')]
+#[Small]
 final class FunctionUnitTest extends TestCase
 {
     public function testCanBeCreatedFromNameOfUserFunction(): void

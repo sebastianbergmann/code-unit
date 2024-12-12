@@ -10,6 +10,7 @@
 namespace SebastianBergmann\CodeUnit;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -21,6 +22,7 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureInterface;
 #[UsesClass(CodeUnit::class)]
 #[UsesClass(Mapper::class)]
 #[TestDox('CodeUnitCollection')]
+#[Small]
 final class CodeUnitCollectionTest extends TestCase
 {
     private InterfaceUnit $interface;
