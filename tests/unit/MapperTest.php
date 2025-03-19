@@ -27,11 +27,14 @@ use SebastianBergmann\CodeUnit\Fixture\FixtureTrait;
 use SebastianBergmann\CodeUnit\Fixture\Getopt;
 use SebastianBergmann\CodeUnit\Fixture\TraitOne;
 use SebastianBergmann\CodeUnit\Fixture\TraitTwo;
+use Xyz;
 
 #[CoversClass(Mapper::class)]
 #[UsesClass(CodeUnit::class)]
 #[UsesClass(CodeUnitCollection::class)]
 #[UsesClass(CodeUnitCollectionIterator::class)]
+#[UsesClass(ClassMethodUnit::class)]
+#[UsesClass(FunctionUnit::class)]
 #[Small]
 final class MapperTest extends TestCase
 {
@@ -201,5 +204,27 @@ final class MapperTest extends TestCase
         $this->assertSame(ClassUsingTraitUsingTrait::class, $units->asArray()[0]->name());
         $this->assertSame(TraitTwo::class, $units->asArray()[1]->name());
         $this->assertSame(TraitOne::class, $units->asArray()[2]->name());
+    }
+
+    #[Ticket('https://github.com/sebastianbergmann/code-unit/issues/9')]
+    public function testIssue9(): void
+    {
+        $units = (new Mapper)->stringToCodeUnits(Xyz::class . '::foobar');
+
+        $this->assertCount(1, $units);
+
+        $unit = $units->asArray()[0];
+
+        $this->assertTrue($unit->isClassMethod());
+        $this->assertSame(Xyz::class . '::foobar', $unit->name());
+
+        $units = (new Mapper)->stringToCodeUnits('foobar');
+
+        $this->assertCount(1, $units);
+
+        $unit = $units->asArray()[0];
+
+        $this->assertTrue($unit->isFunction());
+        $this->assertSame('foobar', $unit->name());
     }
 }

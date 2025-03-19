@@ -40,7 +40,8 @@
         ],
         "files": [
             "tests/_fixture/file_with_multiple_code_units.php",
-            "tests/_fixture/function.php"
+            "tests/_fixture/function.php",
+            "tests/_fixture/issue_9.php"
         ]
     },
     "extra": {

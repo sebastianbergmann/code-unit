@@ -66,12 +66,12 @@ final class Mapper
         if (str_contains($unit, '::')) {
             [$firstPart, $secondPart] = explode('::', $unit);
 
-            if ($this->isUserDefinedFunction($secondPart)) {
-                return CodeUnitCollection::fromList(CodeUnit::forFunction($secondPart));
-            }
-
             if ($this->isUserDefinedMethod($firstPart, $secondPart)) {
                 return CodeUnitCollection::fromList(CodeUnit::forClassMethod($firstPart, $secondPart));
+            }
+
+            if ($this->isUserDefinedFunction($secondPart)) {
+                return CodeUnitCollection::fromList(CodeUnit::forFunction($secondPart));
             }
 
             if ($this->isUserDefinedInterface($firstPart)) {
